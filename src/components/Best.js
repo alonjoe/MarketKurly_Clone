@@ -12,12 +12,12 @@ const Best = () => {
         <SortMenu>
           <p>총 688개</p>
           <ul>
-            <a><li>추천순</li></a><p></p>
-            <a><li>신상품순</li></a><p></p>
-            <a><li>판매량순</li></a><p></p>
-            <a><li>혜택순</li></a><p></p>
-            <a><li>낮은 가격순</li></a><p></p>
-            <a><li>높은 가격순</li></a>
+            <li>추천순</li><p></p>
+            <li>신상품순</li><p></p>
+            <li>판매량순</li><p></p>
+            <li>혜택순</li><p></p>
+            <li>낮은 가격순</li><p></p>
+            <li>높은 가격순</li>
           </ul>
         </SortMenu>
         {/* 맵으로 카드 돌리기 */}
@@ -60,15 +60,18 @@ const SortMenu = styled.div`
     display: flex;
     position: relative;
   }
-  ul > a {
+  ul > li {
     padding: 0px 10px 0 8px;
     color: #999;
     cursor: pointer;
   }
-  ul > a:hover {
+  ul > li:hover {
     color: #000;
   }
-  ul > a:last-child {
+  ul > li:nth-child(5) {
+    color: #000;
+  }
+  ul > li:last-child {
     border: none;
   }
   ul p::after {

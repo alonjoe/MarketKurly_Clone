@@ -26,9 +26,9 @@ const Header = () => {
             </ul> */}
             {/* 비로그인시 */}
             <ul>
-              <a><li>회원가입</li></a><p></p>
-              <a><li>로그인</li></a><p></p>
-              <a><li>고객센터</li></a>
+              <li>회원가입</li><p></p>
+              <li>로그인</li><p></p>
+              <li>고객센터</li>
             </ul>
           </UserMenu>
           <Box>
@@ -46,9 +46,9 @@ const Header = () => {
               <input type="text" placeholder="검색어를 입력해주세요" />
               <img src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" />
             </form>
-            <span className="hovericon"><GrLocation style={{width: "25px", height: "25px"}} /></span>
-            <FiHeart style={{width: "25px", height: "25px"}} />
-            <BsCart2 style={{width: "25px", height: "25px"}} />
+            <div className="icon"><GrLocation style={{width: "25px", height: "25px"}} /></div>
+            <div className="icon"><FiHeart style={{width: "25px", height: "25px"}} /></div>
+            <div className="icon"><BsCart2 style={{width: "25px", height: "25px"}} /></div>
           </Gnb>
         </Wrap>
       </Outter>
@@ -92,7 +92,7 @@ const UserMenu = styled.div`
     justify-content: space-between;
     position: relative;
   }
-  ul > a > li {
+  ul > li {
     font-size: 12px;
     padding: 0 12px;
   }
@@ -162,6 +162,9 @@ const Gnb = styled.div`
     top: -2px;
   }
   span:hover {
+    color: #5f0080;
+  }
+  .icon:hover {
     color: #5f0080;
   }
 `;

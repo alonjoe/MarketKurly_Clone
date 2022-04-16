@@ -21,6 +21,7 @@ const getNewDB = () => {
   return function (dispatch, getState, {history}) {
     axios({
       method: "GET",
+      // url: "",
     }).then((response) => {
       let newList = [];
       const news = response.data;  //data.뭐들어갈지는 콘솔찍어보기
@@ -34,14 +35,36 @@ const getNewDB = () => {
   }
 }
 
+const getBestDB = () => {
+  return function (dispatch, getState, {history}) {
+    axios({
+      method: "GET",
+      // url: "",
+    }).then((response) => {
+      let bestList = [];
+      const news = response.data;  //data.뭐들어갈지는 콘솔찍어보기
+      news.forEach((item) => {
+        bestList.push({ productId: item.productId, ...item });
+      });
+      dispatch(getBest(bestList));
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
 
 // 리듀서 (리덕스에 담는곳)
 export default handleActions(
   {
     // 신상품리스트 리덕스에 넣기
     [GET_NEW]: (state, action) => produce(state, (draft) => {
-      console.log("나나나")
+      console.log("신상품리스트 가져왔다.")
       draft.list = action.payload.newList;
+    }),
+    [GET_BEST]: (state, action) => produce(state, (draft) => {
+      console.log("베스트상품들 가져왔다.");
+      draft.list = action.payload.bestList;
     }),
 
   },
@@ -50,6 +73,7 @@ export default handleActions(
 
 const actionsCreators = {
   getNewDB,
+  getBestDB,
 
 }
 
