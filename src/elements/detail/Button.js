@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const DetailButton = (props) => {
+const Button = (props) => {
     const {
       _onClick,
       children,
@@ -72,7 +72,7 @@ const DetailButton = (props) => {
     );
 };
 
-DetailButton.defaultProps = {
+Button.defaultProps = {
   _onClick: () => {},
   bg: "#5f0081",
   color: "white",
@@ -163,4 +163,4 @@ const ElButton = styled.button`
   }
 `;
 
-export default DetailButton;
+export default Button;

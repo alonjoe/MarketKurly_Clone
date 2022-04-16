@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
 
-const DetailLayout = (props) => {
+const Layout = (props) => {
 
   const {
 
@@ -20,7 +20,7 @@ const DetailLayout = (props) => {
 
 }
 
-DetailLayout.defaultProps = {
+Layout.defaultProps = {
 };
 
 const Container = styled.div`
@@ -30,4 +30,4 @@ const Container = styled.div`
 `;
 
 
-export default DetailLayout;
+export default Layout;

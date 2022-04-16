@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
 
-const DetailGrid = (props) => {
+const Grid = (props) => {
 
   const {
     src,
@@ -17,20 +17,20 @@ const DetailGrid = (props) => {
   };
 
   return (
-    <Grid {...styles}>
+    <WrapGrid {...styles}>
       {children}
-    </Grid>
+    </WrapGrid>
   )
 
 
 }
 
-DetailGrid.defaultProps = {
+Grid.defaultProps = {
   gridColoumn: "1fr",
   align: "left",
 };
 
-const Grid = styled.div`
+const WrapGrid = styled.div`
   display: grid;
   column-gap: 20px;
   row-gap: 20px;
@@ -39,4 +39,4 @@ const Grid = styled.div`
 `;
 
 
-export default DetailGrid;
+export default Grid;

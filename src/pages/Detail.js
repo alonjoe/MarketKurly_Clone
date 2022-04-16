@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Image, DetailGrid, DetailLayout, Text, Description, Table, Pagination, DetailButton, CountBtn } from "../elements";
+import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn } from "../elements/detail/index";
 
 const Main = () => {
 
   return (
     <React.Fragment>
-      <DetailLayout id="sectionView">
-        <DetailGrid gridColoumn="430px 1fr">
+      <Layout id="sectionView">
+        <Grid gridColoumn="430px 1fr">
           <Image src="https://img-cf.kurly.com/shop/data/goods/1649919583551y0.jpg" />
           <div>
             <Text weight="700" color="#333" size="24px" className="goods_name">
@@ -93,15 +93,15 @@ const Main = () => {
                 </Text>
             </div>
             <div id="cartPut">
-              <DetailButton wrap>
+              <Button wrap>
                 {/* <DetailButton iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like.svg" flexGrow="0" width="56px" class="pick_icon_button">찜하기 버튼</DetailButton>  */}
-                <DetailButton iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like-on.svg" flexGrow="0" width="56px">찜하기 버튼</DetailButton> 
-                <DetailButton margin="0 0 0 8px">장바구니 담기</DetailButton>
-              </DetailButton>
+                <Button iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like-on.svg" flexGrow="0" width="56px">찜하기 버튼</Button> 
+                <Button margin="0 0 0 8px">장바구니 담기</Button>
+              </Button>
             </div>
           </div>
-        </DetailGrid>
-        <DetailGrid>
+        </Grid>
+        <Grid>
           <div id="reviewView">
             <Table table className="xans-board-listheader">
               <Table tbody>
@@ -120,14 +120,14 @@ const Main = () => {
               </Table>
             </Table>
             <p>
-              <DetailButton wrap justify="flex-end">
-                <DetailButton sub flexGrow="0" width="fit-content">후기쓰기</DetailButton>
-              </DetailButton>
+              <Button wrap justify="flex-end">
+                <Button sub flexGrow="0" width="fit-content">후기쓰기</Button>
+              </Button>
             </p>
             <Pagination />
           </div>
-        </DetailGrid>
-      </DetailLayout>
+        </Grid>
+      </Layout>
         
       
     </React.Fragment>
