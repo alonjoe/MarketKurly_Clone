@@ -10,6 +10,8 @@ import { FiHeart } from "react-icons/fi";
 import { BsCart2 } from "react-icons/bs";
 
 
+import Flex from "../elements/Flex";
+
 const Header = () => {
   // const history = useHistory();
 
