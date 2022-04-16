@@ -41,7 +41,7 @@ const Text = props => {
   };
   
   Text.defaultProps = {
-    color: "#eee",
+    // color: "#eee",
     userSelect: "text",
     display: "block",
     fontSize: "12xp",

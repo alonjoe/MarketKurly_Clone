@@ -1,6 +1,5 @@
-import React, { Children } from "react";
-import styled from "styled-components"
-import Flex from "./Flex";
+import React from "react";
+import styled from "styled-components";
 
 const Button = props => {
     const {
@@ -16,7 +15,7 @@ const Button = props => {
         right,
         ai,
         fontSize,
-        chidren,
+        children,
     } = props;
 
     const styles = {
@@ -36,7 +35,7 @@ const Button = props => {
 
     return (
         <Buttonstyle {...styles} onClick={() => _onClick()}>
-            {Children}
+            {children}
         </Buttonstyle>
     );
 };
@@ -45,38 +44,32 @@ Button.defaultProps = {
     margin: "",
     width: "100%",
     height: "",
-    color: "#eee",
+    // color: "#eee",
     padding: "5px",
-    bg: "#35a0b8",
+    // bg: "#35a0b8",
     fontSize: "16px",
     border: "none",
     borderR: "8px",
     _onClick: () => {},
 };
 
-const Buttonstyle = styled.div`
-    width: ${props => props.width};
-    height: ${props => props.height};
+const Buttonstyle = styled.button`
     margin: ${props => props.margin};
     padding: ${props => props.padding};
+    width: ${props => props.width};
+    height: ${props => props.height};
     border: ${props => props.border};
     border-radius: ${props => props.borderR};
-    border-bottom: ${props => props.borderBottom};
-    box-shadow: ${props => props.boxS};
-    gap: ${props => props.gap};
-    z-index: ${props => props.zIndex};
-    position: ${props => props.position};
-    top: ${props => props.trbl[0]};
-    right: ${props => props.trbl[1]};
-    bottom: ${props => props.trbl[2]};
-    left: ${props => props.trbl[3]};
-    display: flex;
-    flex-direction: ${props => props.fd};
-    justify-content: ${props => props.jc};
-    align-items: ${props => props.ai};
-    background-color: ${props => props.bg};
-    overflow: ${props => props.overflow};
+
     color: ${props => props.color};
+    background-color: ${props => props.bg};
+    bottom: ${props => props.border};
+    right: ${props => props.right};
+    left: ${props => props.left};
+    align-items: ${props => props.ai};
+
+    font-weight: bold;
+    font-size: ${props => props.fontSize};
 `;
 
-export default Flex;
+export default Button;

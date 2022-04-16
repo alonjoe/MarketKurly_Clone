@@ -43,6 +43,9 @@ const InputBox = props => {
 };
 
 InputBox.defaultProps = {
+    margin: "",
+    width: "100%",
+    height: "",
     fontSize: "16px",
     outline: "none",
 };
