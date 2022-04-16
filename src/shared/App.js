@@ -24,11 +24,8 @@ function App() {
         <Route exact path="/new" component={New} />
         <Route exact path="/best" component={Best} />
         <Route exact path="/detail" component={Detail} />
-      
         <Footer />
-      
       </ConnectedRouter>
-      <Footer></Footer>
     </div>
   );
 }

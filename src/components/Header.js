@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-// import { useHistory } from "react-router-dom";
 
 
 import { RiMenuFill } from "react-icons/ri";
@@ -20,7 +19,7 @@ const Header = () => {
       <Outter>
         <Wrap>
           <UserMenu>
-            <img src="https://res.kurly.com/pc/service/common/2011/delivery_210801.png" alt="샛별, 택배 배송안내" width="121" height="22" />
+            <img src="https://res.kurly.com/pc/service/common/2011/delivery_210801.png" alt="샛별, 택배 배송안내" width="121" height="22"/>
             {/* 조건걸어서 로그인시 */}
             {/* <ul>
               <a><li>000 님</li></a><p></p>
@@ -34,7 +33,8 @@ const Header = () => {
             </ul>
           </UserMenu>
           <Box>
-            <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" />
+            <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" 
+              onClick={() => { history.push("/") }} style={{cursor: "pointer"}} />
           </Box>
           <Gnb>
             <ul>
@@ -110,7 +110,7 @@ const UserMenu = styled.div`
 
 const Gnb = styled.div`
   position: relative;
-  z-index: 300;
+  z-index: 3;
   display: flex;
   justify-content: space-between;
   margin-top: 75px;

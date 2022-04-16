@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "./Modal";
+import "../shared/App.css";
 
 const Card = () => {
+
+  const [modal, setModal] = useState(false);
 
   return (
     <React.Fragment>
       <Item>
         {/* imgurl 가져와서 넣기 */}
         <a><div></div></a>
-        <button style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}></button>
+        <ModalBtn 
+          onClick={() => { setModal(true); }}
+          style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}>
+        </ModalBtn>
+        {modal === true 
+        ? <Modal getModal={modal} setModal={setModal}/>
+        : null
+        }
+        
         <Info>
           {/* title넣기 */}
           <Name>[미미네] 어묵많이 눈꽃치즈 국물떡볶이</Name>
@@ -49,15 +61,16 @@ const Item = styled.div`
     height: 435px;
     background: #999;
   }
-  button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    position: absolute;
-    right: 15px;
-    bottom: 260px;
-    z-index: 2;
-  }
+`;
+
+const ModalBtn = styled.button` 
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  bottom: 260px;
+  z-index: 2;
 `;
 
 const Info = styled.div`
