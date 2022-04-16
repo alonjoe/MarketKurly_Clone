@@ -42,7 +42,7 @@ Text.defaultProps = {
   bold: false,
   color: "#4c4c4c",
   size: "12px",
-  weight: "400",
+  weight: "500",
   align: "left",
   lineThrough: false,
   margin: "0",

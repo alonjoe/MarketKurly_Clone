@@ -86,11 +86,13 @@ const Tr = styled.div`
 const Th = styled.div`
   text-align: ${(props) => (props.align)};
   padding: 22px 3px 23px;
+  font-size: 12px;
 `;
 
 const Td = styled.div`
   text-align: ${(props) => (props.align)};
   padding: 22px 3px 23px;
+  font-size: 12px;
 `;
 
 export default Table;

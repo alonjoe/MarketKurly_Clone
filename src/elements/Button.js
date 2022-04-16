@@ -68,7 +68,7 @@ const Buttonstyle = styled.button`
     left: ${props => props.left};
     align-items: ${props => props.ai};
 
-    font-weight: bold;
+    font-weight: ${props => props.weight};
     font-size: ${props => props.fontSize};
 `;
 

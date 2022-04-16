@@ -61,28 +61,35 @@ const CountBtn = (props) => {
     }
 
     return (
-      <React.Fragment {...styles}>
-        <MinusButton imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
-        <Input type="number" readonly/>
+      <WarpCount {...styles}>
+        <MinusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
+        <Input {...styles} value="1" type="number" readOnly={true} />
         {/* <input type="number" readonly="readonly" onfocus="this.blur()" class="inp" />  */}
-        <PlusButton imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
-      </React.Fragment>
+        <PlusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
+      </WarpCount>
     );
 };
 
 CountBtn.defaultProps = {
   _onClick: () => {},
-  bg: "#5f0081",
   color: "white",
-  width: "fit-content",
   gridColoumn: "1fr",
   flexGrow: "1",
   imgUrl: false,
-  height: "56px",
+  height: "30px",
+  width: "30px",
   margin: "0",
   borderRadius: "3px",
   justify: "flex-start",
 };
+
+const WarpCount = styled.button`
+  border: 1px solid #ddd;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 3px;
+  background-color: white;
+`;
 
 const MinusButton = styled.button`
   background-image: url("${(props) => (props.imgUrl)}");
@@ -92,14 +99,12 @@ const MinusButton = styled.button`
   flex-grow: ${(props) => props.flexGrow};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  background-color: white;
   background-size: 30px 30px;
-  border: 1px solid #ddd;
+  background-color: transparent;
+  border: none;
   color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
-  padding: 16px;
   box-sizing: border-box;
-  border-radius:  ${(props) => props.borderRadius};
   &:hover {
     cursor: pointer
   }
@@ -113,30 +118,29 @@ const PlusButton = styled.button`
   flex-grow: ${(props) => props.flexGrow};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  background-color: white;
+  background-color: transparent;
   background-size: 30px 30px;
-  border: 1px solid #ddd;
+  border: none;
   color: ${(props) => props.bg};
   margin: ${(props) => props.margin};
-  padding: 16px;
   box-sizing: border-box;
-  border-radius:  ${(props) => props.borderRadius};
   &:hover {
     cursor: pointer
   }
 `;
 
 const Input = styled.input`
-  width: 30px;
-  height: 30px;
-  margin-right: -1px;
-  padding: 0 0 4px;
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
   border: 0;
   background-color: #fff;
   font-size: 14px;
   color: #000;
   line-height: 18px;
-  text-align: center;
+  text-align: end;
+  &:focus-visible {
+    outline: none;
+  }
 `;
 
 export default CountBtn;
