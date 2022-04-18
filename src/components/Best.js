@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Card from "./Card";
+import { Pagination } from "../elements/detail/index";
 
 const Best = () => {
 
@@ -39,7 +40,7 @@ const Best = () => {
           <Card></Card>
         </List>
       </Content>
-
+      <Pagination />
     </React.Fragment>
   )
 }

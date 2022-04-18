@@ -29,3 +29,9 @@ export default handleActions(
   },
   initialState
 )
+
+const actionsCreators = {
+  addBasket,
+}
+
+export { actionsCreators }

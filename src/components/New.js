@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as itemActions } from "redux";
 
 import Card from "./Card";
+import { Pagination } from "../elements/detail/index";
 
 const New = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const New = () => {
           <Card></Card>
         </List>
       </Content>
-
+      <Pagination />
     </React.Fragment>
   )
 }

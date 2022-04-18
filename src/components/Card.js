@@ -3,6 +3,11 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import "../shared/App.css";
 
+import {RESP} from "../redux/modules/response";
+import {priceUnit} from "../shared/Price";
+
+
+// 나중에 RESP말고 props로 받아서 뿌리기
 const Card = () => {
 
   const [modal, setModal] = useState(false);
@@ -12,8 +17,7 @@ const Card = () => {
       <Item>
         {/* imgurl 가져와서 넣기 */}
         <div className="image">
-          <img style={{width: "100%"}}
-          src="https://img-cf.kurly.com/shop/data/goods/1648175852980l0.jpg" alt="내 마음대로 꾸미는 마스크줄" onerror="this.src='https://res.kurly.com/mobile/img/1808/img_none_x2.png'"/>
+          <img style={{width: "100%"}} src={RESP.imgurl} alt="이미지"/>
         </div>
         <ModalBtn 
           onClick={() => { setModal(true); }}
@@ -26,14 +30,14 @@ const Card = () => {
         
         <Info>
           {/* title넣기 */}
-          <Name>[미미네] 어묵많이 눈꽃치즈 국물떡볶이</Name>
+          <Name>{RESP.title}</Name>
           <Cost>
             {/* discount넣기 */}
-            <span className="dc">10%</span>
+            <span className="dc">{RESP.discount}%</span>
             {/* 할인된가격 */}
-            <span className="price">5,670원</span>
+            <span className="price">{priceUnit(RESP.price - (RESP.price * (RESP.discount / 100)))}원</span>
             {/* price */}
-            <span className="original">6300원</span>
+            <span className="original">{priceUnit(RESP.price)}</span>
             {/* desc 요청하기 */}
             <span className="desc">오동토동한 어묵이 가득</span>
           </Cost>
