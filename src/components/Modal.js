@@ -8,6 +8,17 @@ const Modal = (props) => {
   let setModal = props.setModal;
   let getModal = props.getModal;
 
+  const [quantity, setQuantity] = useState(1);
+  
+  const onclickPlus = useCallback(() => {
+		if (quantity > 99) return;
+		setQuantity(quantity + 1);
+	}, [quantity]);
+  const onclickMinus = useCallback(() => {
+		if (quantity < 2) return;
+		setQuantity(quantity - 1);
+	}, [quantity]);
+
   return (
     <Wrap>
       <MyCart>
@@ -15,17 +26,9 @@ const Modal = (props) => {
         <Option>
           <span>16,000원</span>
           <div style={{display: "flex", position: "relative"}}>
-            <button className="minusBtn">-</button>
-            <input readOnly="readnly" value="1" />
-            <button className="plusBtn">+</button>
-          </div>
-        </Option>
-        <Option>
-          <span>16,000원</span>
-          <div style={{display: "flex", position: "relative"}}>
-            <button className="minusBtn">-</button>
-            <input readOnly="readnly" value="1" />
-            <button className="plusBtn">+</button>
+            <button className="minusBtn" onClick={onclickMinus}>감소</button>
+            <input readOnly="readnly" value={quantity} />
+            <button className="plusBtn" onClick={onclickPlus}>추가</button>
           </div>
         </Option>
         <Total>
@@ -82,39 +85,49 @@ const Option = styled.div`
   span {
     font-size: 14px;
     font-weight: 800;
+    line-height: 30px;
+  }
+  button {
+    overflow: hidden;
+    font-weight: 600;
+    border: 1px solid #e1e1e1;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
   }
   button.minusBtn {
     position: absolute;
-    top: 0px;
     right: 58px;
-    background: #fff;
     overflow: hidden;
     float: left;
-    width: 28px;
-    height: 28px;
-    border: 0;
-    font-size: 20px;
     font-weight: 800;
+    background-image: url(https://res.kurly.com/pc/service/common/2009/ico_minus_on.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    background-position: 50% 50%;
   }
   input {
     position: absolute;
     right: 28px;
     width: 30px;
     height: 30px;
+    border: 1px solid #e1e1e1;
     text-align: center;
   }
   button.plusBtn {
     position: absolute;
     top: 0px;
     right: 0px;
-    background: #fff;
     overflow: hidden;
     float: right;
-    width: 28px;
-    height: 28px;
-    border: 0;
-    font-size: 20px;
     font-weight: 800;
+    background-image: url(https://res.kurly.com/mobile/service/cart/2010/ico_plus_on.svg);
+    margin-left: -1px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 35px 35px;
+    background-position: 50% 50%;
   }
 `;
 
@@ -125,7 +138,7 @@ const Total = styled.div`
   span:first-child {
     font-size: 16px;
     font-weight: 800;
-    line-height: 29px;
+    line-height: 35px;
   }
   span:last-child {
     font-size: 24px;

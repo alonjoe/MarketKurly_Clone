@@ -1,9 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Card from "./Card";
 
 const Best = () => {
+
+  // const bestList = useSelector((state) => console.log(state.card.list));
+  // console.log(bestList);
 
   return (
     <React.Fragment>
@@ -22,10 +26,11 @@ const Best = () => {
         </SortMenu>
         {/* 맵으로 카드 돌리기 */}
         <List>
-          {/* ex)  베스트상품 list로 받아와서 
-          {articleList.map((a, idx) => {
-            return <Article key={a.articleNum} {...a} />;
-          })} 이런식으로 돌리기 */}
+          {/* ex)  베스트상품 list로 받아와서! */}
+          {/* ex)  {...a} <- props로 넘겨주기 */}
+          {/* {bestList.map((a, idx) => {
+            return <Card key={a.productId} {...a} />;
+          })} */}
           <Card></Card>
           <Card></Card>
           <Card></Card>

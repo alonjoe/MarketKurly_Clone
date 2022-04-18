@@ -4,12 +4,14 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 import card from "./modules/card";
+import basket from "./modules/basket";
 
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   card: card,
+  basket: basket,
   router: connectRouter(history),
 });
 

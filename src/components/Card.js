@@ -11,7 +11,10 @@ const Card = () => {
     <React.Fragment>
       <Item>
         {/* imgurl 가져와서 넣기 */}
-        <a><div></div></a>
+        <div className="image">
+          <img style={{width: "100%"}}
+          src="https://img-cf.kurly.com/shop/data/goods/1648175852980l0.jpg" alt="내 마음대로 꾸미는 마스크줄" onerror="this.src='https://res.kurly.com/mobile/img/1808/img_none_x2.png'"/>
+        </div>
         <ModalBtn 
           onClick={() => { setModal(true); }}
           style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}>
@@ -46,20 +49,17 @@ const Item = styled.div`
   width: 338px;
   height: 682px;
   position: relative;
-
-  a {
+  .image {
     width: 100%;
     height: 435px;
     cursor: pointer;
-    transition: 0.3s;
+    overflow: hidden;
   }
-  a:hover {
-    transform: scale(1.05);
+  .image > img {
+    transition:  0.5s;
   }
-  a > div {
-    width: 100%;
-    height: 435px;
-    background: #999;
+  .image > img:hover {
+    transform: scale(1.02);
   }
 `;
 
