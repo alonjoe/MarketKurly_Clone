@@ -1,3 +1,4 @@
+import { reduce } from "lodash";
 import React from "react";
 import styled from "styled-components";
 
@@ -15,8 +16,10 @@ const InputBox = props => {
         border,
         subText,
         _onBlur,
+        borderR,
         ph,
-        ol //outline
+        ol, //outline
+        ac,
     } = props;
 
     const styles = { 
@@ -28,9 +31,12 @@ const InputBox = props => {
         bg, 
         color, 
         border, 
+        borderR,
         placeholder : ph,
         type,
         outline : ol,
+        ac,
+        // borderradius : br,
     };
     
 
@@ -48,6 +54,9 @@ InputBox.defaultProps = {
     height: "",
     fontSize: "16px",
     outline: "none",
+    borderR: "3px",
+    // borderradius: "30px",
+    
 };
 
 const InputContainer = styled.input`
@@ -62,6 +71,9 @@ const InputContainer = styled.input`
     font-size: ${props => props.fontSize};
     border: ${props => props.border};
     outline: ${props => props.ol};
+    border-radius: ${props => props.br};
+    accent-color: ${props => props.ac};
+    border-radius: ${props => props.borderR};
 `;
 
 export default InputBox;

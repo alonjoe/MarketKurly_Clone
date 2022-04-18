@@ -15,6 +15,8 @@ const Button = props => {
         right,
         ai,
         fontSize,
+        borderR,
+        cursor,
         children,
     } = props;
 
@@ -30,6 +32,8 @@ const Button = props => {
         left,
         right,
         ai,
+        borderR,
+        cursor,
         fontSize,
     };
 
@@ -47,9 +51,9 @@ Button.defaultProps = {
     // color: "#eee",
     padding: "5px",
     // bg: "#35a0b8",
-    fontSize: "16px",
+    fontSize: "",
     border: "none",
-    borderR: "8px",
+    borderR: "3px",
     _onClick: () => {},
 };
 
@@ -68,6 +72,7 @@ const Buttonstyle = styled.button`
     left: ${props => props.left};
     align-items: ${props => props.ai};
 
+    cursor: ${props => props.cursor};
     font-weight: bold;
     font-size: ${props => props.fontSize};
 `;
