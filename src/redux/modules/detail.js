@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { Apis } from "../../shared/api";
+import axios from "axios";
+
 
 // 액션타입
 const GET_Detail = "GET_Detail";
@@ -16,16 +18,47 @@ const initialState = {
 // 미들웨어 (서버와 통신하는 함수. 줄거, 받아올거)
 const getDetailDB = () => {
   return function (dispatch, getState, {history}) {
-    Apis.loadDetail()
-    .then(function (response) {
-      console.log(response.data)
-      dispatch(getDetail(response.data));
-      console.log("성공")
-    })
-    .catch(function (error) {
+    console.log("df");
+
+    axios({
+      method: "GET",
+      url: "http://13.125.11.137/api/product/new",
+    }).then((response) => {
+      console.log(response);
+      const bests = response.data.bestList;  //data.뭐들어갈지는 콘솔찍어보기
+      console.log(bests)
+    }).catch((error) => {
       console.log(error);
-      console.log("실패")
-    });
+    })
+
+
+    // axios
+    //   .get(
+    //     // "http://13.125.11.137/api/product/new",
+    //     "https://624ff4c4e3e5d24b34192201.mockapi.io/review",
+    //   )
+    //   .then(function (response) {
+    //       console.log("--getDetailDB api call Success");
+    //       console.log(response);
+    //       dispatch(getDetail(response));
+    //   })
+    //   .catch(function (error) {
+    //       console.log("--getDetailDB api call Fail");
+    //       console.log(error.response);
+    //   });
+
+
+    // console.log("hi");
+    // Apis.loadDetail()
+    // .then(function (response) {
+    //   console.log(response.data);
+    //   dispatch(getDetail(response.data));
+    //   console.log("디테일 가져옴 성공");
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    //   console.log("실패")
+    // });
   }
 }
 

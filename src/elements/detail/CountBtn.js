@@ -66,7 +66,7 @@ const CountBtn = (props) => {
 
   return (
     <WarpCount {...styles}>
-      <MinusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
+      <MinusButton onClick={_onClick} {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
       <Input {...styles} type="number" readOnly={true} value={value}/>
       <PlusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
     </WarpCount>

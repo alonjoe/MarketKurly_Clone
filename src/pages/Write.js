@@ -2,20 +2,44 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space, Input } from "../elements/detail/index";
+import { useSelector, useDispatch } from "react-redux";
+import { detailCreators as detailActions } from "../redux/modules/detail";
+import { Apis } from "../shared/api";
+import { reviewCreators as reviewActions } from "../redux/modules/review";
+
+
 
 const Write = (props) => {
+  const [id, setId] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
+  const [imgUrl, setImgUrl] = React.useState(null);
 
-  const {
-    thumb,
-  } = props;
+  React.useEffect(() => {
+    dispatch(detailActions.getDetailDB());
+  }, []);
 
-  console.log(thumb)
+  const detail = useSelector((state) => state.detail.detail);
+
+  React.useEffect(() => {
+    if (detail) {
+      setTitle(detail.title);
+      setImgUrl(detail.imgurl);
+    } else {
+      return null
+    }
+  }, [])
+
   const inputTitle = React.useRef()
   const inputContent = React.useRef()
   
+  const dispatch = useDispatch();
 
   const submit = () => {
-    console.log(inputTitle)
+    if (inputTitle.current.value === null || inputTitle.current.value === undefined || inputTitle.current.value === "") {
+      alert("제목과 내용을 모두 입력해 주세요.");
+    } else {
+      dispatch(reviewActions.writeReviewDB(inputTitle.current.value, inputContent.current.value));
+    }
   }
 
   return (
@@ -25,9 +49,9 @@ const Write = (props) => {
       </Text>
       <GoodsInfo>
         <Grid is_flex width="100%">
-          <Image width="80px" height="103px" src="https://img-cf.kurly.com/shop/data/goods/1649919583551y0.jpg" />
+          <Image width="80px" height="103px" src={imgUrl} />
           <Text margin="0 0 0 25px" color="#000" size="16px" line-height="24px">
-            [코이누르] 정통 인도커리 3종
+            {title}
           </Text>
         </Grid>
       </GoodsInfo>

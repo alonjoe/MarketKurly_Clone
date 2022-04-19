@@ -5,7 +5,7 @@ import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, Coun
 import { useSelector, useDispatch } from "react-redux";
 import { reviewCreators as reviewActions } from "../redux/modules/review";
 
-const Review = () => {
+const Review = (props) => {
   const dispatch = useDispatch();
   const review = React.useRef(null);
   const checkClick = (e) => {
@@ -15,7 +15,6 @@ const Review = () => {
   React.useEffect(() => {
     dispatch(reviewActions.getReviewDB());
     window.addEventListener('click', checkClick);
-    
   }, []);
 
   

@@ -4,8 +4,9 @@ import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, Coun
 import Review from "../components/Review";
 import { Apis } from "../shared/api";
 import { useSelector, useDispatch } from "react-redux";
-import { detailCreators as getActions } from "../redux/modules/detail";
+import { detailCreators as detailActions } from "../redux/modules/detail";
 import { reviewCreators as reviewActions } from "../redux/modules/review";
+import axios from "axios";
 
 
 
@@ -30,38 +31,47 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    // dispatch(reviewActions.getReviewDB());
+    // dispatch(detailActions.getDetailDB());
+    axios({
+      method: "GET",
+      url: "http://13.125.11.137/api/product/detail/2",
+    }).then((response) => {
+      console.log("디테일");
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    })
+
+    console.log("디테일");
+  }, []);
+
+  const detail = useSelector((state) => state.detail.detail);
+  const reviewList = useSelector((state) => state.review.review);
+
   const changeAmount = () => {
     setAmount(amount=+1)
   }
 
-
   React.useEffect(() => {
-    dispatch(reviewActions.getReviewDB());
-  }, []);
-
-  const reviewList = useSelector((state) => state.review.review);
-
-  React.useEffect(() => {
-    Apis.loadDetail()
-    .then(function (response) {       
-      const info = response.data;
-      setTitle(info.title);
-      setSubtitle(info.subtitle);
-      setPrice(info.price);
-      setDiscount(info.discount);
-      setImgUrl(info.imgurl);
-      setLike(info.like);
-      setSalesUnit(info.salesUnit);
-      setWeightVolume(info.weightVolume);
-      setShippingType(info.shippingType);
-      setPacakagingType(info.packagingType);
-      setAllergyInfo(info.allergyInfo);
-      setNotification(info.notification);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }, []);
+    if (detail) {
+      setTitle(detail.title);
+      setSubtitle(detail.subtitle);
+      setPrice(detail.price);
+      setDiscount(detail.discount);
+      setImgUrl(detail.imgurl);
+      setLike(detail.like);
+      setSalesUnit(detail.salesUnit);
+      setWeightVolume(detail.weightVolume);
+      setShippingType(detail.shippingType);
+      setPacakagingType(detail.packagingType);
+      setAllergyInfo(detail.allergyInfo);
+      setNotification(detail.notification);
+    } else {
+      return null
+    }
+  }, [])
   
   
   return (
@@ -80,12 +90,13 @@ const Main = () => {
               회원할인가
             </Text>
             <Text lineheight="30px" weight="700" size="28px">
-              {discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              {discountedPrice}
+              {/* .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") */}
               <Text span margin="0 7px 0 2px" weight="700" size="18px">원</Text>
               <Text span weight="700" size="28px" color="#fa622f">{discount}%</Text>
             </Text> 
             <Text margin="7px 0 19px" lineThrough size="16px" color="#999">
-              {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
+              {price}원
             </Text>
             <Description dl>
               <Description dt>
@@ -133,7 +144,7 @@ const Main = () => {
                 구매수량
               </Description> 
               <Description dd>
-                <CountBtn value={amount} _onclick={changeAmount}>
+                <CountBtn value={amount} _onClick={changeAmount}>
                 </CountBtn>
               </Description>
             </Description>
