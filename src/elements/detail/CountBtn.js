@@ -2,72 +2,75 @@ import React from "react";
 import styled from "styled-components";
 
 const CountBtn = (props) => {
-    const {
-      _onClick,
-      children,
-      color,
-      bg,
-      wrap,
-      flexGrow,
-      width,
-      imgUrl,
-      icon,
-      height,
-      margin,
-      iconOutline,
-      borderRadius,
-      justify,
-      sub,
-      minus,
-      plus,
-      input,
-    } = props;
 
-    const styles = {
-      bg: bg,
-      color: color,
-      width: width,
-      flexGrow: flexGrow,
-      imgUrl: imgUrl,
-      icon: icon,
-      height: height,
-      margin: margin,
-      borderRadius: borderRadius,
-      justify: justify,
-    };
+  const {
+    _onClick,
+    __onClick,
+    children,
+    color,
+    bg,
+    wrap,
+    flexGrow,
+    width,
+    imgUrl,
+    icon,
+    height,
+    margin,
+    iconOutline,
+    borderRadius,
+    justify,
+    sub,
+    minus,
+    plus,
+    input,
+    value,
+  } = props;
 
-    if (minus) {
-      return (
-        <MinusButton {...styles} onClick={_onClick}>
-          {children}
-        </MinusButton>
-      )
-    }
+  const styles = {
+    bg: bg,
+    color: color,
+    width: width,
+    flexGrow: flexGrow,
+    imgUrl: imgUrl,
+    icon: icon,
+    height: height,
+    margin: margin,
+    borderRadius: borderRadius,
+    justify: justify,
+  };
 
-    if (input) {
-      return (
-        <Input {...styles} onClick={_onClick}>
-          {children}
-        </Input>
-      )
-    }
-
-    if (plus) {
-      return (
-        <PlusButton {...styles} onClick={_onClick}>
-          {children}
-        </PlusButton>
-      )
-    }
-
+  if (minus) {
     return (
-      <WarpCount {...styles}>
-        <MinusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
-        <Input {...styles} value="1" type="number" readOnly={true} />
-        {/* <input type="number" readonly="readonly" onfocus="this.blur()" class="inp" />  */}
-        <PlusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
-      </WarpCount>
-    );
+      <MinusButton {...styles} onClick={_onClick}>
+        {children}
+        하이
+      </MinusButton>
+    )
+  }
+
+  if (input) {
+    return (
+      <Input {...styles} type="number" readOnly={true}>
+        {children}
+      </Input>
+    )
+  }
+
+  if (plus) {
+    return (
+      <PlusButton {...styles} onClick={__onClick}>
+        {children}
+      </PlusButton>
+    )
+  }
+
+  return (
+    <WarpCount {...styles}>
+      <MinusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
+      <Input {...styles} type="number" readOnly={true} value={value}/>
+      <PlusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
+    </WarpCount>
+  );
 };
 
 CountBtn.defaultProps = {
@@ -83,7 +86,7 @@ CountBtn.defaultProps = {
   justify: "flex-start",
 };
 
-const WarpCount = styled.button`
+const WarpCount = styled.div`
   border: 1px solid #ddd;
   height: fit-content;
   width: fit-content;

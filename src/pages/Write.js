@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space, Input } from "../elements/detail/index";
@@ -10,6 +10,13 @@ const Write = (props) => {
   } = props;
 
   console.log(thumb)
+  const inputTitle = React.useRef()
+  const inputContent = React.useRef()
+  
+
+  const submit = () => {
+    console.log(inputTitle)
+  }
 
   return (
     <Layout margin="68px auto 88px" width="fit-content">
@@ -28,22 +35,20 @@ const Write = (props) => {
       <Tr>
         <Th>제목</Th>
         <Td>
-          <Input type="text" width="710px" name="subject" placeholder="제목을 입력해주세요." className="inp " value="" />
+          <Input _ref={inputTitle} type="text" width="710px" name="subject" placeholder="제목을 입력해주세요." className="inp " value="" />
         </Td>
       </Tr>
       <Tr>
         <Th>후기작성</Th>
         <Td>
-        <div className="field_cmt">
-          <Input textarea height="500px" width="710px" name="contents" cols="100" rows="10" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,
+          <Input _ref={inputContent} textarea height="500px" width="710px" name="contents" cols="100" rows="10" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,
           일반식품의 효능이나 효과 등에 오해의 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다. 
           반품/환불 문의는 1:1문의로 가능합니다." />
-        </div>
         </Td>
       </Tr>
       </Tbody>
       <Button wrap justify="center" margin="40px">
-        <Button flexGrow="0" width="200px" weight="500">등록하기</Button>
+        <Button flexGrow="0" width="200px" weight="500" _onClick={submit}>등록하기</Button>
       </Button>
     </Layout>
   )

@@ -2,8 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space } from "../elements/detail/index";
+import { useSelector, useDispatch } from "react-redux";
+import { reviewCreators as reviewActions } from "../redux/modules/review";
 
 const Review = () => {
+  const dispatch = useDispatch();
+  const review = React.useRef(null);
+  const checkClick = (e) => {
+    // console.log(e.target)
+  }
+
+  React.useEffect(() => {
+    dispatch(reviewActions.getReviewDB());
+    window.addEventListener('click', checkClick);
+    
+  }, []);
+
+  
+  const reviewList = useSelector((state) => state.review.review);
+
+  
 
   return (
     <React.Fragment>
@@ -11,26 +29,32 @@ const Review = () => {
           <Table table>
             <Table tbody>
               <Table tr>
-                <Table th align="center">번호</Table>
-                <Table th>제목</Table>
+                <Table th align="center">작성번호</Table>
+                <Table th>아이디</Table>
                 <Table th align="center">작성자</Table>
                 <Table th align="center">작성일</Table>
               </Table>
-              <Table tr>
-                <Table td align="center">445</Table>
-                <Table td>고딩</Table>
-                <Table td align="center">소민경</Table>
-                <Table td align="center">2019-11-01</Table>
-              </Table>
-              <ReviewDetail>
-                아들 원스데일리 포맨 먹다가 비교차 바꿔봄
-                <Button wrap margin="20px 0 0" justify="flex-end">
-                  <Button subOutline margin="0 4px 0 0" >수정</Button>
-                  <Button subOutline>삭제</Button>
-                </Button>
-              </ReviewDetail>
-              
-            </Table>
+              {reviewList? 
+                  reviewList.map((review, idx) => {
+                  return (
+                    <React.Fragment>
+                      <Table tr>
+                        <Table td align="center">{review.reviewId}</Table>
+                        <Table td>{review.title}</Table>
+                        <Table td align="center">{review.userName}</Table>
+                        <Table td align="center">{review.createdAt}</Table>
+                      </Table>
+                      <ReviewDetail>
+                        {review.title}
+                        <Button wrap margin="20px 0 0" justify="flex-end">
+                          <Button subOutline margin="0 4px 0 0" >수정</Button>
+                          <Button subOutline>삭제</Button>
+                        </Button>
+                      </ReviewDetail>
+                    </React.Fragment>
+                  );
+              }): null}
+           </Table>
           </Table>
           <Button wrap margin="30px 0" justify="flex-end">
             <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
@@ -63,6 +87,7 @@ const ReviewDetail = styled.div`
   width: 100%;
   height: fit-content;
   font-size: 12px;
+  // ${(props) => (props.hide ? `display: none;` : "")};
 `;
 
 export default Review;
