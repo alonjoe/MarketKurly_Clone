@@ -1,21 +1,19 @@
 import axios from "axios";
-<<<<<<< HEAD
 import { isSession, setSession } from "./Session";
 import { getSession } from "./Session";
 
-const URL = "";
+// const URL = "";
 
-//회원가입
-const post_signUP = async (id, pwd, name, phone, address) => {
-    await axios
-        .post(`${URL}/api/signup`), {
-            userID: id,
-            password: pwd,
-            passwordCheck: pwd,
+// //회원가입
+// const post_signUP = async (id, pwd, name, phone, address) => {
+//     await axios
+//         .post(`${URL}/api/signup`), {
+//             userID: id,
+//             password: pwd,
+//             passwordCheck: pwd,
 
-        })
-}
-=======
+//         })
+// }
 
 const Api = axios.create({
     baseURL: "https://virtserver.swaggerhub.com/Ohjinwoo/clone/1.0.0",
@@ -33,4 +31,3 @@ export const Apis = {
   loadDetail: (productId) => Api.get(`api/product/detail/productId`),
   loadReview: (productId) => subApi.get(`review`),
 };
->>>>>>> d303665ab133c719661e46cb019676d44e06a67c
