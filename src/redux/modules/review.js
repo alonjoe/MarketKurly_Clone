@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { Apis } from "../../shared/api";
 
-import moment from "moment";
+// import moment from "moment";
 
 // 액션타입
 const GET_Review = "GET_Review";
@@ -26,7 +26,7 @@ const initialReview = {
   content: "",
   userId: "",
   userName: "",
-  createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  // createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
   productId: "",
   reviewId: "",
 };
