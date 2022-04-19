@@ -6,14 +6,15 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import card from "./modules/card";
+import user from "./modules/user";
 import basket from "./modules/basket";
 import detail from "./modules/detail";
 import review from "./modules/review";
 
-
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  user: user,
   card: card,
   basket: basket,
   detail: detail,

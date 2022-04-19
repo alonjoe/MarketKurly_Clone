@@ -25,10 +25,7 @@ function App() {
         <Route exact path="/new" component={New} />
         <Route exact path="/best" component={Best} />
         <Route exact path="/detail" component={Detail} />
-<<<<<<< HEAD
-=======
         <Route exact path="/write" component={Write} />
->>>>>>> 82864f422535d5b7691a13c5bc1dd4ba50ee173a
         <Footer />
       </ConnectedRouter>
     </div>
