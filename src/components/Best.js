@@ -1,14 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { actionsCreators as itemActions } from "../redux/modules/card";
 
 import Card from "./Card";
 import { Pagination } from "../elements/detail/index";
 
 const Best = () => {
+  
+  const dispatch = useDispatch();
 
-  // const bestList = useSelector((state) => console.log(state.card.list));
+  const bestList = useSelector((state) => state.card.list);
   // console.log(bestList);
+
+  React.useEffect(() => {
+    dispatch(itemActions.getBestDB());
+  }, [])
 
   return (
     <React.Fragment>
@@ -27,17 +34,9 @@ const Best = () => {
         </SortMenu>
         {/* 맵으로 카드 돌리기 */}
         <List>
-          {/* ex)  베스트상품 list로 받아와서! */}
-          {/* ex)  {...a} <- props로 넘겨주기 */}
-          {/* {bestList.map((a, idx) => {
-            return <Card key={a.productId} {...a} />;
-          })} */}
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
+          {bestList.map((v, i) => {
+            return <Card key={v.productbestId} {...v}/>
+          })}
         </List>
       </Content>
       <Pagination />

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as itemActions } from "redux";
+import { actionsCreators as itemActions } from "../redux/modules/card";
 
 import Card from "./Card";
 import { Pagination } from "../elements/detail/index";
@@ -9,9 +9,10 @@ import { Pagination } from "../elements/detail/index";
 const New = () => {
   const dispatch = useDispatch();
   const newList = useSelector((state) => state.card.list);
+  // console.log(newList);
 
   React.useEffect(() => {
-    // dispatch(itemActions.getNewDB());
+    dispatch(itemActions.getNewDB());
   }, [])
 
   return (
@@ -33,17 +34,10 @@ const New = () => {
           </ul>
         </SortMenu>
         {/* 맵으로 카드 돌리기 */}
-        {/* ex)  신상품 newList로 받아와서 
-          {articleList.map((a, idx) => {
-            return <Article key={a.articleNum} {...a} />;
-          })} 이런식으로 돌리기 */}
         <List>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
+          {newList.map((v, i) => {
+            return <Card key={v.productnewId} {...v} />
+          })}
         </List>
       </Content>
       <Pagination />

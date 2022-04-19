@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
+import { priceUnit } from "../shared/Price";
+
 
 const Modal = (props) => {
 
@@ -22,9 +24,9 @@ const Modal = (props) => {
   return (
     <Wrap>
       <MyCart>
-        <p>[모두의맛집] 알꼬막 짬뽕</p>
+        <p>{props.title}</p>
         <Option>
-          <span>16,000원</span>
+          <span>{priceUnit(props.price)}원</span>
           <div style={{display: "flex", position: "relative"}}>
             <button className="minusBtn" onClick={onclickMinus}>감소</button>
             <input readOnly="readnly" value={quantity} />
@@ -33,7 +35,7 @@ const Modal = (props) => {
         </Option>
         <Total>
           <span>합계</span>
-          <span>16,000원</span>
+          <span>{priceUnit(props.price * quantity)}원</span>
         </Total>
         <Point>
           <span>적립</span>

@@ -27,8 +27,8 @@ const Header = () => {
             </ul> */}
             {/* 비로그인시 */}
             <ul>
-              <li>회원가입</li><p></p>
-              <li>로그인</li><p></p>
+              <li onClick={() => { history.push("/signup") }}>회원가입</li><p></p>
+              <li onClick={() => { history.push("/login") }}>로그인</li><p></p>
               <li>고객센터</li>
             </ul>
           </UserMenu>
@@ -97,6 +97,7 @@ const UserMenu = styled.div`
   ul > li {
     font-size: 12px;
     padding: 0 12px;
+    cursor: pointer;
   }
   ul p::after {
     content: "";
