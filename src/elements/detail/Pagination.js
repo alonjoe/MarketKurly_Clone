@@ -11,6 +11,7 @@ const Pagination = (props) => {
     size,
     wrap,
     number,
+    selected,
   } = props;
 
   const styles = {
@@ -34,22 +35,17 @@ const Pagination = (props) => {
     );
   }
 
+  if (selected) {
+    return (
+      <PageLinkActive {...styles}>
+        {children}
+      </PageLinkActive>
+    );
+  }
+
   return (
     <WrapPagination {...styles}>
-      <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png">맨 처음 페이지로 가기</Pagination>
-      <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-prev.png">이전 페이지로 가기</Pagination>
-      <Pagination number>1</Pagination>
-      <Pagination number>2</Pagination>
-      <Pagination number>3</Pagination>
-      <Pagination number>4</Pagination>
-      <Pagination number>5</Pagination>
-      <Pagination number>6</Pagination>
-      <Pagination number>7</Pagination>
-      <Pagination number>8</Pagination>
-      <Pagination number>9</Pagination>
-      <Pagination number>10</Pagination>
-      <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-next.png">다음 페이지로 가기</Pagination>
-      <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-last.png">맨 끝 페이지로 가기</Pagination>
+      {children}
     </WrapPagination>
   )
 
@@ -59,11 +55,13 @@ const Pagination = (props) => {
 Pagination.defaultProps = {
   imgUrl: false,
   size: "34px",
+  active: true,
 };
 
 const WrapPagination = styled.div`
   margin: 0 auto;
   width: fit-content;
+  margin-bottom: 88px;
 `
 
 const PageIconLink = styled.a`
@@ -81,6 +79,9 @@ const PageIconLink = styled.a`
   &:first-child {
     border-left: 1px solid #ddd;
   }
+  &:active {
+
+  }
 `;
 
 const PageLink = styled.a`
@@ -92,6 +93,26 @@ const PageLink = styled.a`
   border-left: 0;
   vertical-align: top;
   text-align: center;
+  font-size: 12px;
+  ${(props) => (props.active ? 
+    `
+    background-color: #f7f7f7;
+    color: #5f0080;
+    ` : "")};
+`;
+
+const PageLinkActive = styled.a`
+  display: inline-block;
+  width: ${(props) => (props.size)};
+  height: ${(props) => (props.size)};
+  line-height: ${(props) => (props.size)};
+  border: 1px solid #ddd;
+  border-left: 0;
+  vertical-align: top;
+  text-align: center;
+  font-size: 12px;
+  background-color: #f7f7f7;
+  color: #5f0080;
 `;
 
 

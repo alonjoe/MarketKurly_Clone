@@ -12,6 +12,7 @@ import Best from '../components/Best';
 import New from '../components/New';
 import Detail from "../pages/Detail";
 import Flex from "../elements/Flex";
+import Write from "../pages/Write";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
         <Route exact path="/new" component={New} />
         <Route exact path="/best" component={Best} />
         <Route exact path="/detail" component={Detail} />
+<<<<<<< HEAD
+=======
+        <Route exact path="/write" component={Write} />
+>>>>>>> 82864f422535d5b7691a13c5bc1dd4ba50ee173a
         <Footer />
       </ConnectedRouter>
     </div>
