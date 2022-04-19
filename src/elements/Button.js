@@ -73,7 +73,7 @@ const Buttonstyle = styled.button`
     align-items: ${props => props.ai};
 
     cursor: ${props => props.cursor};
-    font-weight: bold;
+    font-weight: ${props => props.weight};
     font-size: ${props => props.fontSize};
 `;
 

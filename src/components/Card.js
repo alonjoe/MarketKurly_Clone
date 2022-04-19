@@ -1,24 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "./Modal";
+import "../shared/App.css";
 
+import {RESP} from "../redux/modules/response";
+import {priceUnit} from "../shared/Price";
+
+
+// 나중에 RESP말고 props로 받아서 뿌리기
 const Card = () => {
+
+  const [modal, setModal] = useState(false);
 
   return (
     <React.Fragment>
       <Item>
         {/* imgurl 가져와서 넣기 */}
-        <a><div></div></a>
-        <button style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}></button>
+        <div className="image">
+          <img style={{width: "100%"}} src={RESP.imgurl} alt="이미지"/>
+        </div>
+        <ModalBtn 
+          onClick={() => { setModal(true); }}
+          style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}>
+        </ModalBtn>
+        {modal === true 
+        ? <Modal getModal={modal} setModal={setModal}/>
+        : null
+        }
+        
         <Info>
           {/* title넣기 */}
-          <Name>[미미네] 어묵많이 눈꽃치즈 국물떡볶이</Name>
+          <Name>{RESP.title}</Name>
           <Cost>
             {/* discount넣기 */}
-            <span className="dc">10%</span>
+            <span className="dc">{RESP.discount}%</span>
             {/* 할인된가격 */}
-            <span className="price">5,670원</span>
+            <span className="price">{priceUnit(RESP.price - (RESP.price * (RESP.discount / 100)))}원</span>
             {/* price */}
-            <span className="original">6300원</span>
+            <span className="original">{priceUnit(RESP.price)}</span>
             {/* desc 요청하기 */}
             <span className="desc">오동토동한 어묵이 가득</span>
           </Cost>
@@ -34,30 +53,28 @@ const Item = styled.div`
   width: 338px;
   height: 682px;
   position: relative;
-
-  a {
+  .image {
     width: 100%;
     height: 435px;
     cursor: pointer;
-    transition: 0.3s;
+    overflow: hidden;
   }
-  a:hover {
-    transform: scale(1.05);
+  .image > img {
+    transition:  0.5s;
   }
-  a > div {
-    width: 100%;
-    height: 435px;
-    background: #999;
+  .image > img:hover {
+    transform: scale(1.02);
   }
-  button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    position: absolute;
-    right: 15px;
-    bottom: 260px;
-    z-index: 2;
-  }
+`;
+
+const ModalBtn = styled.button` 
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  bottom: 260px;
+  z-index: 2;
 `;
 
 const Info = styled.div`

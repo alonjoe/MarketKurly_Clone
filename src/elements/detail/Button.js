@@ -18,6 +18,8 @@ const Button = (props) => {
       borderRadius,
       justify,
       sub,
+      subOutline,
+      weight,
     } = props;
 
     const styles = {
@@ -31,6 +33,8 @@ const Button = (props) => {
       margin: margin,
       borderRadius: borderRadius,
       justify: justify,
+      margin: margin,
+      weight: weight,
     };
 
     if (wrap) {
@@ -65,6 +69,14 @@ const Button = (props) => {
       )
     }
 
+    if (subOutline) {
+      return (
+        <SubOutlineButton {...styles} onClick={_onClick}>
+          {children}
+        </SubOutlineButton>
+      )
+    }
+
     return (
       <ElButton {...styles} onClick={_onClick}>
           {children}
@@ -84,12 +96,14 @@ Button.defaultProps = {
   margin: "0",
   borderRadius: "3px",
   justify: "flex-start",
+  weight: "700",
 };
 
 const WrapButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: ${(props) => (props.justify)};
+  margin: ${(props) => (props.margin)};
 `;
 
 const IconOutlineButton = styled.button`
@@ -136,11 +150,30 @@ const SubButton = styled.button`
   line-heihgt: 30px;
   background-color: #795b8f;
   color: ${(props) => props.color};
-  padding: 16px;
+  padding: 0 16px;
   margin: ${(props) => props.margin};
   box-sizing: border-box;
-  border-radius: ${(props) => props.borderRadius};
-  border: 1px solid #5f0080;
+  border: 1px solid ${(props) => props.bg};
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 32px;
+  &:hover {
+    cursor: pointer
+  }
+`;
+
+const SubOutlineButton = styled.button`
+  line-heihgt: 30px;
+  background-color: white;
+  padding: 0 16px;
+  margin: ${(props) => props.margin};
+  box-sizing: border-box;
+  font-size: 12px;
+  line-height: 28px;
+  background-color: white;
+  border: 1px solid #ddd;
+  color: ${(props) => props.bg};
+  margin: ${(props) => props.margin};
   &:hover {
     cursor: pointer
   }
@@ -158,6 +191,8 @@ const ElButton = styled.button`
   box-sizing: border-box;
   border-radius:  ${(props) => props.borderRadius};
   border: none;
+  font-size: 16px;
+  font-weight: ${(props) => props.weight};
   &:hover {
     cursor: pointer
   }

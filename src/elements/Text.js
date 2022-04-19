@@ -15,22 +15,24 @@ const Text = props => {
         color, 
         userSelect, 
         textAlign, 
-        children
+        children,
+        lineheight,
     } = props;
 
     const styles = {
-        width,
-        margin,
-        fontSize,
-        fontWeight,
-        textAlign,
-        color,
-        userSelect,
-        borderR,
-        display,
-        disabled,
-        padding,
-        bg,
+        width: width,
+        margin: margin,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        textAlign: textAlign,
+        color: color,
+        userSelect: userSelect,
+        borderR: borderR,
+        display: display,
+        disabled: disabled,
+        padding: padding,
+        bg: bg,
+        lineheight: lineheight,
     };
 
     return (
@@ -48,7 +50,9 @@ const Text = props => {
     fontWeight: "normal",
     textAlign: "start",
     width: "auto",
+    padding: "0px",
     className: "",
+    lineheight: "auto",
   }
   
   const StyledText = styled.text`
@@ -63,6 +67,7 @@ const Text = props => {
     padding: ${props => props.padding};
     background-color: ${props => props.bg};
     border-radius: ${props => props.borderR};
+    line-heihgt: ${props => props.lineheight};
     ${props => props.disabled ? "user-select: none" : ''};
   `;
   

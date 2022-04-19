@@ -1,131 +1,158 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn } from "../elements/detail/index";
+import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space } from "../elements/detail/index";
+import Review from "../components/Review";
+import { Apis } from "../shared/api";
+import { useSelector, useDispatch } from "react-redux";
+import { detailCreators as getActions } from "../redux/modules/detail";
+import { reviewCreators as reviewActions } from "../redux/modules/review";
+
+
 
 const Main = () => {
+  const [id, setId] = React.useState(null);
+  const [title, setTitle] = React.useState(null);
+  const [subtitle, setSubtitle] = React.useState(null);
+  const [price, setPrice] = React.useState(0);
+  const [discount, setDiscount] = React.useState(0);
+  const discountedPrice = price-(price/100*discount)
+  const [imgUrl, setImgUrl] = React.useState(null);
+  const [like, setLike] = React.useState(null);
+  const [salesUnit, setSalesUnit] = React.useState(null);
+  const [weightVolume, setWeightVolume] = React.useState(null);
+  const [shippingType, setShippingType] = React.useState(null);
+  const [packagingType, setPacakagingType] = React.useState(null);
+  const [allergyInfo, setAllergyInfo] = React.useState(null);
+  const [notification, setNotification] = React.useState(null);
+  const [amount, setAmount] = React.useState(1);
+  const TotalPrice = discountedPrice*amount
 
+
+  const dispatch = useDispatch();
+
+  const changeAmount = () => {
+    setAmount(amount=+1)
+  }
+
+
+  React.useEffect(() => {
+    dispatch(reviewActions.getReviewDB());
+  }, []);
+
+  const reviewList = useSelector((state) => state.review.review);
+
+  React.useEffect(() => {
+    Apis.loadDetail()
+    .then(function (response) {       
+      const info = response.data;
+      setTitle(info.title);
+      setSubtitle(info.subtitle);
+      setPrice(info.price);
+      setDiscount(info.discount);
+      setImgUrl(info.imgurl);
+      setLike(info.like);
+      setSalesUnit(info.salesUnit);
+      setWeightVolume(info.weightVolume);
+      setShippingType(info.shippingType);
+      setPacakagingType(info.packagingType);
+      setAllergyInfo(info.allergyInfo);
+      setNotification(info.notification);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, []);
+  
+  
   return (
     <React.Fragment>
-      <Layout id="sectionView">
+      <Layout>
         <Grid gridColoumn="430px 1fr">
-          <Image src="https://img-cf.kurly.com/shop/data/goods/1649919583551y0.jpg" />
+          <Image src={imgUrl} />
           <div>
-            <Text weight="700" color="#333" size="24px" className="goods_name">
-                [미미네] 어묵많이 눈꽃치즈 국물떡볶이
+            <Text margin="10px 0" lineheight="34px" weight="700" color="#333" size="24px">
+              {title}
             </Text>
-            <Text color="#999" size="14px"  className="short_desc">
-                오동통한 어묵이 가득
+            <Text lineheight="20px" color="#999" size="14px" margin="4px 60px 29px 0">
+              {subtitle}
             </Text>
-            <Text color="#333" size="14px" className="goods_dcinfo">
+            <Text lineheight="20px" color="#333" size="14px">
               회원할인가
             </Text>
-            <Text className="goods_price">
-              <span className="position">
-                <span className="dc">
-                  <Text weight="700" size="28px" className="dc_price">
-                    5,670<Text span weight="700" size="18px" className="won">원</Text>
-                    <Text span weight="700" size="28px" color="#fa622f" className="dc_percent">
-                      10%
-                    </Text>
-                  </Text> 
-                  <Text lineThrough size="16px" color="#999" class="price">14,980<span class="won">원</span></Text>
-                </span>
-              </span>
+            <Text lineheight="30px" weight="700" size="28px">
+              {discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              <Text span margin="0 7px 0 2px" weight="700" size="18px">원</Text>
+              <Text span weight="700" size="28px" color="#fa622f">{discount}%</Text>
+            </Text> 
+            <Text margin="7px 0 19px" lineThrough size="16px" color="#999">
+              {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원
             </Text>
-            <div className="goods_info">
-              <Description dl className="list fst">
-                <Description dt className="tit">
-                  판매단위
-                </Description> 
-                <Description dd className="desc">
-                  1팩
-                </Description>
-              </Description>
-              <Description dl className="list">
-                <Description dt className="tit">
-                  중량/용량
-                </Description> 
-                <Description dd className="desc">
-                  620g
-                </Description>
+            <Description dl>
+              <Description dt>
+                판매단위
               </Description> 
-              <Description dl className="list">
-                <Description dt className="tit">
-                  배송구분
-                </Description>
-                <Description dd className="desc">
-                  샛별배송/택배배송
-                </Description>
+              <Description dd>
+                {salesUnit}
               </Description>
-              <Description dl className="list">
-                <Description dt className="tit">
-                  포장타입
-                </Description> 
-                <Description dd className="desc">냉동/스티로폼
-                  <strong className="emph">택배배송은 에코포장이 스티로폼으로 대체됩니다.</strong>
-                </Description>
+            </Description>
+            <Description dl>
+              <Description dt>
+                중량/용량
               </Description> 
-              <Description dl className="list">
-                <Description dt className="tit">
-                  알레르기정보
-                </Description> 
-                <Description dd className="desc">
-                  -떡 : 밀 함유<br />
-                  -어묵 : 밀, 대두 함유<br />
-                  -소스 : 밀 함유<br />
-                  -치즈 : 우유 함유
-                </Description>
+              <Description dd>
+                {weightVolume}
               </Description>
-              <Description dl className="list">
-                <Description dt className="tit">
-                  구매수량
-                </Description> 
-                <Description dd className="desc">
-                  <CountBtn />
-                </Description>
+            </Description> 
+            <Description dl>
+              <Description dt>
+                배송구분
               </Description>
-                <Text align="right">
-                <Text span weight="700" color="#333" size="13px">총 상품금액 :</Text> 
-                <Text span weight="700" color="#333" size="32px">
-                  5,960
-                  <Text span weight="700" color="#333" size="20px">원</Text>
-                </Text>
-                </Text>
-            </div>
-            <div id="cartPut">
-              <Button wrap>
-                {/* <DetailButton iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like.svg" flexGrow="0" width="56px" class="pick_icon_button">찜하기 버튼</DetailButton>  */}
-                <Button iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like-on.svg" flexGrow="0" width="56px">찜하기 버튼</Button> 
-                <Button margin="0 0 0 8px">장바구니 담기</Button>
-              </Button>
-            </div>
+              <Description dd>
+                {shippingType}
+              </Description>
+            </Description>
+            <Description dl>
+              <Description dt>
+                포장타입
+              </Description> 
+              <Description dd>
+                {packagingType}
+                {/* <Text size="12px" weight="400" color="#666" margin="4px 0 0">택배배송은 에코포장이 스티로폼으로 대체됩니다.</Text> */}
+              </Description>
+            </Description> 
+            <Description dl>
+              <Description dt>
+                알레르기정보
+              </Description> 
+              <Description dd>
+                {allergyInfo}
+              </Description>
+            </Description>
+            <Description dl>
+              <Description dt>
+                구매수량
+              </Description> 
+              <Description dd>
+                <CountBtn value={amount} _onclick={changeAmount}>
+                </CountBtn>
+              </Description>
+            </Description>
+            <Text align="right" margin="30px 0 20px">
+              <Text span weight="700" color="#333" size="13px">총 상품금액 :</Text> 
+                <Text span lineheight="32px" margin="0 8px 0" weight="700" color="#333" size="32px">
+                  {TotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  <Text span margin="0 0 0 2px" weight="700" color="#333" size="20px">원</Text>
+              </Text>
+            </Text>
+            <Button wrap margin="0 0 88px">
+              {/* <Button iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like.svg" flexGrow="0" width="56px">찜하기 버튼</Button>  */}
+              <Button iconOutline imgUrl="https://res.kurly.com/pc/service/pick/btn-itemdetail-like-on.svg" flexGrow="0" width="56px">찜하기 버튼</Button> 
+              <Button margin="0 0 0 8px">장바구니 담기</Button>
+            </Button>
           </div>
         </Grid>
         <Grid>
-          <div id="reviewView">
-            <Table table className="xans-board-listheader">
-              <Table tbody>
-                <Table tr>
-                  <Table th className="input_txt" align="center">번호</Table>
-                  <Table th className="input_txt">제목</Table>
-                  <Table th className="input_txt" align="center">작성자</Table>
-                  <Table th className="input_txt" align="center">작성일</Table>
-                </Table>
-                <Table tr>
-                  <Table td align="center">공지</Table>
-                  <Table td className="subject">금주의 Best 후기 안내</Table>
-                  <Table td className="user_grade" align="center">Marketkurly</Table>
-                  <Table td className="time" align="center">2019-11-01</Table>
-                </Table>
-              </Table>
-            </Table>
-            <p>
-              <Button wrap justify="flex-end">
-                <Button sub flexGrow="0" width="fit-content">후기쓰기</Button>
-              </Button>
-            </p>
-            <Pagination />
-          </div>
+          <Review reviewList={reviewList} />
         </Grid>
       </Layout>
         

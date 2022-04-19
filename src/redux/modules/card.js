@@ -39,7 +39,7 @@ const getBestDB = () => {
   return function (dispatch, getState, {history}) {
     axios({
       method: "GET",
-      // url: "",
+      // url: 'https://virtserver.swaggerhub.com/Ohjinwoo/clone/1.0.0/api/product/best',
     }).then((response) => {
       let bestList = [];
       const news = response.data;  //data.뭐들어갈지는 콘솔찍어보기
