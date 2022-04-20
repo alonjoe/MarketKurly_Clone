@@ -61,7 +61,7 @@ const Header = () => {
 export default Header;
 
 const Outter = styled.div`
-  border-bottom: 1px solid #eee;
+  box-shadow: 0px 1px 8px #eee;
 `;
 
 const Wrap = styled.div`

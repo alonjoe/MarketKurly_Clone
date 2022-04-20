@@ -9,7 +9,7 @@ import { Pagination } from "../elements/detail/index";
 const New = () => {
   const dispatch = useDispatch();
   const newList = useSelector((state) => state.card.list);
-  console.log(newList);
+  // console.log(newList);
 
   React.useEffect(() => {
     dispatch(itemActions.getNewDB());
@@ -36,7 +36,7 @@ const New = () => {
         <List>
           {/* 맵으로 카드 돌리기, key값은 unique하게, 배열풀어서 속성으로 넘겨주기 */}
           {newList.map((v, i) => {
-            return <Card key={v.productnewId} {...v} />
+            return <Card key={`newItem_${i}`} {...v} />
           })}
         </List>
       </Content>

@@ -27,9 +27,13 @@ const Modal = (props) => {
 		setQuantity(quantity - 1);
 	}, [quantity]);
 
-  console.log(props.productbestId, props.productnewId, quantity)
+  // console.log(props.productbestId, props.productnewId, quantity)
   const addBasket = () => {
-    dispatch(basketActions.addBasketDB(props.productbestId, props.productnewId, quantity));
+    if (props.productbestId) {
+      dispatch(basketActions.addBestBasketDB(props.productbestId, quantity));
+    } else {
+      dispatch(basketActions.addNewBasketDB(props.productnewId, quantity));
+    }
   }
 
   return (

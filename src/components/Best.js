@@ -35,7 +35,7 @@ const Best = () => {
         <List>
           {/* 맵으로 카드 돌리기, key값은 unique하게, 배열풀어서 속성으로 넘겨주기 */}
           {bestList.map((v, i) => {
-            return <Card key={v.productbestId} {...v}/>
+            return <Card key={`bestItem_${i}`} {...v}/>
           })}
         </List>
       </Content>
