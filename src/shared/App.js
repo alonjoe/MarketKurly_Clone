@@ -13,6 +13,7 @@ import New from '../components/New';
 import Detail from "../pages/Detail";
 import Flex from "../elements/Flex";
 import Write from "../pages/Write";
+import Basket from '../pages/Basket';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/best" component={Best} />
         <Route exact path="/detail" component={Detail} />
         <Route exact path="/write" component={Write} />
+        <Route exact path="/Basket" component={Basket} />
         <Footer />
       </ConnectedRouter>
     </div>

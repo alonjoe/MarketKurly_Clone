@@ -50,7 +50,7 @@ const Header = () => {
             </form>
             <div className="icon"><GrLocation style={{width: "25px", height: "25px"}} /></div>
             <div className="icon"><FiHeart style={{width: "25px", height: "25px"}} /></div>
-            <div className="icon"><BsCart2 style={{width: "25px", height: "25px"}} /></div>
+            <div className="icon" onClick={() => { history.push("/basket") }}><BsCart2 style={{width: "25px", height: "25px"}} /></div>
           </Gnb>
         </Wrap>
       </Outter>

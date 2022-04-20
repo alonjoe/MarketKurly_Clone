@@ -161,7 +161,7 @@ const Total = styled.div`
 `;
 
 const Point = styled.div`
-margin: 6px 0 20px 0;
+  margin: 6px 0 20px 0;
   text-align: right;
   span:first-child {
     color: #fff;
