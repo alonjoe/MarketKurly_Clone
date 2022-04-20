@@ -33,15 +33,23 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
+  const detail = useSelector((state) => state.detail.detail);
+  const reviewList = useSelector((state) => state.review.review);
+
+
   React.useEffect(() => {
-    dispatch(detailActions.getDetailDB());
+    if (detail === null) {
+      console.log('---디테일 없음')
+      dispatch(detailActions.getDetailDB())
+    } else {
+      console.log('---디테일 있음')
+    };
+    // dispatch(detailActions.getDetailDB());
     if (localStorage.getItem("token")) {
       dispatch(reviewActions.getUserInfo());
     }
+    // window.location.reload();
   }, []);
-
-  const detail = useSelector((state) => state.detail.detail);
-  const reviewList = useSelector((state) => state.review.review);
 
   const MinusAmount = () => {
     if (amount > 1) {

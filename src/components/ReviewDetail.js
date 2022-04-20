@@ -8,6 +8,8 @@ import ReviewDetailOpen from "./ReviewDetailOpen";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.detail_user.detail_user);
+
   const [reviewDetailOpen, setReviewDetailOpen] = React.useState("none");
   const reviewDetailClick = () => {
     if (reviewDetailOpen === "none") {
@@ -42,9 +44,14 @@ return (
     </Table>
     <ReviewDetailOpen display={reviewDetailOpen}>
       {content}
-      <Button wrap margin="20px 0 0" justify="flex-end">
-        <Button subOutline _onClick={_onClick} _key={reviewid}>삭제</Button>
-      </Button>
+      {userInfo?
+        userInfo.userName === userName? 
+            <Button wrap margin="20px 0 0" justify="flex-end">
+              <Button subOutline _onClick={_onClick} _key={reviewid}>삭제</Button>
+            </Button>
+        : null:null
+      }
+      
     </ReviewDetailOpen>
   </React.Fragment>
 );

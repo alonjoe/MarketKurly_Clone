@@ -23,6 +23,7 @@ const getDetailDB = () => {
       console.log(response);
       dispatch(getDetail(response.data.Detailpage[0]));
       console.log("디테일 가져옴 성공");
+      // window.location.reload();
     })
     .catch(function (error) {
       console.log(error);
