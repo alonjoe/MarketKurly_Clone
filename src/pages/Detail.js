@@ -35,13 +35,22 @@ const Main = () => {
 
   React.useEffect(() => {
     dispatch(detailActions.getDetailDB());
+    if (localStorage.getItem("token")) {
+      dispatch(reviewActions.getUserInfo());
+    }
   }, []);
 
   const detail = useSelector((state) => state.detail.detail);
   const reviewList = useSelector((state) => state.review.review);
 
-  const changeAmount = () => {
-    setAmount(amount=+1);
+  const MinusAmount = () => {
+    if (amount > 1) {
+      setAmount(amount-1);
+    }
+  }
+
+  const PlusAmount = () => {
+    setAmount(amount+1);
   }
 
   React.useEffect(() => {
@@ -136,7 +145,7 @@ const Main = () => {
                 구매수량
               </Description> 
               <Description dd>
-                <CountBtn value={amount} _onClick={changeAmount}>
+                <CountBtn value={amount} _onClickMinus={MinusAmount} _onClickPlus={PlusAmount}>
                 </CountBtn>
               </Description>
             </Description>

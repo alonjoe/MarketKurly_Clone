@@ -47,28 +47,14 @@ const Review = (props) => {
                   reviewList.map((review, idx) => {
                   return (
                     <ReviewDetail 
-                      reviewid={review.reviewid} 
+                      index={idx}
+                      reviewid={review.reviewid}
                       title={review.title} 
                       userName={review.userName}  
                       createdAt={review.createdAt} 
                       content={review.content}
                       _onClick={deleteReview}>
                     </ReviewDetail>
-                    // <React.Fragment>
-                    //   <Table tr _onClick={reviewDetailClick}>
-                    //     <Table td align="center">{review.reviewid}</Table>
-                    //     <Table td>{review.title}</Table>
-                    //     <Table td align="center">{review.userName}</Table>
-                    //     <Table td align="center">{review.createdAt.split("T")[0]}</Table>
-                    //   </Table>
-                    //   <ReviewDetail display={reviewDetailOpen}>
-                    //     {review.content}
-                    //     <Button wrap margin="20px 0 0" justify="flex-end">
-                    //       {/* <Button subOutline margin="0 4px 0 0" >수정</Button> */}
-                    //       <Button _onClick={deleteReview} subOutline _key={review.reviewid}>삭제</Button>
-                    //     </Button>
-                    //   </ReviewDetail>
-                    // </React.Fragment>
                   );
               }): null}
            </Table>

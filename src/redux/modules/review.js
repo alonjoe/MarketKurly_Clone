@@ -12,19 +12,18 @@ const GET_Review = "GET_Review";
 const WRITE_Review = "WRITE_Review";
 const EDIT_Review = "EDIT_Review";
 const DELETE_Review = "EDIT_Review";
-
+const GET_User = "GET_User";
 
 // 액션생성함수 
 const getReview = createAction(GET_Review, (review) => ({ review }));
 const writeReview = createAction(WRITE_Review, (review) => ({ review }));
 const editReview = createAction(EDIT_Review, (review) => ({ review }));
 const deleteReview = createAction(DELETE_Review, (review) => ({ review }));
+const getUser = createAction(GET_User, (detail_user) => ({ detail_user }));
 
 const initialState = {
   review: "",
 }
-
-
 
 const initialReview = {
   title: "he",
@@ -105,33 +104,6 @@ const editReviewDB = (inputTitle, inputContent) => {
 const deleteReviewDB = (reviewId) => {
   console.log(reviewId);
   return function (dispatch, getState, {history}) {
-    // const reviewIdData = {
-    //   "reviewId": "80",
-    // }
-    // console.log(reviewIdData)
-    // Apis.deleteReview(reviewIdData)
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   if (error.response) {
-    //     // The request was made and the server responded with a status code
-    //     // that falls out of the range of 2xx
-    //     console.log(error.response.data);
-    //     console.log(error.response.status);
-    //     console.log(error.response.headers);
-    //   } else if (error.request) {
-    //     // The request was made but no response was received
-    //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    //     // http.ClientRequest in node.js
-    //     console.log(error.request);
-    //   } else {
-    //     // Something happened in setting up the request that triggered an Error
-    //     console.log('Error', error.message);
-    //   }
-    //   console.log(error.config);
-    // });
-
     axios({
       method: "delete",
       url: "http://13.125.11.137/api/review/2",
@@ -141,17 +113,7 @@ const deleteReviewDB = (reviewId) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
-    })
-    // .delete("http://13.125.11.137/api/review/2", // 미리 약속한 주소
-    //   {
-    //     reviewId: reviewId,
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("token")}`
-    //     },
-    //   },
-    //   )
+      })
       .then(function (response) {
         console.log(response);
         alert(response.data.msg);
@@ -170,8 +132,39 @@ const deleteReviewDB = (reviewId) => {
         }
         console.log(error.config);
       });
+  }
+}
 
-    
+const getUserInfo = () => {
+  console.log('---Run getUserInfo')
+  return function (dispatch, getState, {history}) {
+    axios({
+      method: "get",
+      url: "http://13.125.11.137/api/users/me",
+      data: {
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      dispatch(getUser(response.data.user));
+    })
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    });
+  
   }
 }
 
@@ -196,8 +189,10 @@ export default handleActions(
       console.log("리뷰 삭제");
       let new_review_list = draft.review.filter(
         (review) => review.reivewId !== action.payload.reivewId
-      );
-      draft.review = [...new_review_list];
+      )
+    }),
+    [GET_User]: (state, action) => produce(state, (draft) => {
+      draft.detail_user = action.payload.detail_user;
     }),
   },
   initialState
@@ -208,6 +203,7 @@ const reviewCreators = {
   writeReviewDB,
   editReviewDB,
   deleteReviewDB,
+  getUserInfo,
 }
 
 export { reviewCreators }

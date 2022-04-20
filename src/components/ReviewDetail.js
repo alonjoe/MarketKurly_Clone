@@ -18,8 +18,6 @@ const ReviewDetail = (props) => {
   }
 
   React.useEffect(() => {
-    console.log('hi')
-    console.log(reviewid)
   }, []);
 
   const {
@@ -29,6 +27,7 @@ const ReviewDetail = (props) => {
     userName,
     createdAt,
     _onClick,
+    index,
   } = props;
 
   
@@ -36,7 +35,7 @@ const ReviewDetail = (props) => {
 return (
   <React.Fragment>
     <Table tr _onClick={reviewDetailClick}>
-      <Table td align="center">{reviewid}</Table>
+      <Table td align="center">{index+1}</Table>
       <Table td>{title}</Table>
       <Table td align="center">{userName}</Table>
       <Table td align="center">{createdAt.split("T")[0]}</Table>
@@ -44,8 +43,6 @@ return (
     <ReviewDetailOpen display={reviewDetailOpen}>
       {content}
       <Button wrap margin="20px 0 0" justify="flex-end">
-        {/* <Button subOutline margin="0 4px 0 0" >수정</Button> */}
-        {/* <Button _onClick={deleteReview} subOutline _key={props.reviewid}>삭제</Button> */}
         <Button subOutline _onClick={_onClick} _key={reviewid}>삭제</Button>
       </Button>
     </ReviewDetailOpen>
@@ -53,14 +50,5 @@ return (
 );
             
 }
-
-// const ReviewDetailOpen = styled.div`
-//   padding: 30px 20px;
-//   width: 100%;
-//   height: fit-content;
-//   font-size: 12px;
-//   border-bottom: 1px solid #e3e3e3;
-//   ${(props) => (props.hide ? `display: none;` : "")};
-// `;
 
 export default ReviewDetail;
