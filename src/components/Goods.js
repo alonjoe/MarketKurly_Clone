@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 
+import {priceUnit} from "../shared/Price";
+
 const Goods = () => {
 
   const [quantity, setQuantity] = useState(1);
@@ -113,9 +115,16 @@ const ImgBox = styled.div`
 
 const GoodsName = styled.div`
   width: 335px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  p {
+    font-weight: 500;
+  }
 `;
 
 const Amount = styled.div`
   margin-left: 165px;
   line-height: 75px;
+  font-weight: 500;
 `;

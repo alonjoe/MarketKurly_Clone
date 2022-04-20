@@ -1,9 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionsCreators as basketActions } from "../redux/modules/basket";
+
 import Delivery from "../components/Delivery";
 import MyCart from "../components/MyCart";
 
 const Basket = () => {
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(basketActions.getBasketDB());
+  }, []);
 
   return (
     <React.Fragment>

@@ -27,9 +27,9 @@ const Modal = (props) => {
 		setQuantity(quantity - 1);
 	}, [quantity]);
 
-  console.log(props.productbestId, quantity)
+  console.log(props.productbestId, props.productnewId, quantity)
   const addBasket = () => {
-    dispatch(basketActions.addBasketDB(props.productbestId, quantity));
+    dispatch(basketActions.addBasketDB(props.productbestId, props.productnewId, quantity));
   }
 
   return (

@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { GrLocation } from "react-icons/gr";
 
-const Delivery = () => {
+import {priceUnit} from "../shared/Price";
+
+const Delivery = (props) => {
 
   return (
     <React.Fragment>
       <Wrap>  
         <CartDelivery>
-          <GrLocation style={{width: "20px", height: "20px", position: "absolute", top: "22px"}} /><p style={{ paddingLeft: "25px" }}>배송지</p>
+          <GrLocation style={{width: "20px", height: "20px", position: "absolute", top: "22px"}} /><p style={{ paddingLeft: "25px", fontWeight: "500" }}>배송지</p>
           <p style={{ margin: "10px 0" }}><span>배송지를 입력</span>하고<br/>배송유형을 확인해 보세요!</p>
           <div>주소검색</div>
         </CartDelivery>
@@ -35,6 +37,11 @@ const Delivery = () => {
           </Point>
         </AmountView>
         <Order>주문하기</Order>
+        <Alert>
+          <p>쿠폰/적립금은 주문서에서 사용 가능합니다.</p>
+          <p>[배송준비중] 이전까지 주문 취소 가능합니다.</p>
+          <p>[마이컬리 &gt; 주문내역 상세페이지]에서 직접 취소하실 수 있습니다.</p>
+        </Alert>
       </Wrap>
     </React.Fragment>
   )
@@ -51,8 +58,19 @@ const CartDelivery = styled.div`
   position: relative;
   border: 1px solid #f2f2f2;
   padding: 20px;
+  font-weight: 500;
   p > span {
     color: #5f0080;
+  }
+  div {
+    font-size: 12px;
+    width: 100%;
+    border: 1px solid #5f0080;
+    border-radius: 6px;
+    color: #5f0080;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 500;
   }
 `;
 
@@ -113,4 +131,14 @@ const Order = styled.div`
   padding: 20px 0;
   border-radius: 6px;
   margin-top: 20px;
+`;
+
+const Alert = styled.div`
+  margin-top: 34px;
+  p {
+    font-size: 12px;
+    letter-spacing: -.5px;
+    color: #666;
+    margin-bottom: 5px;
+  }
 `;

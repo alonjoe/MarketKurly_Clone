@@ -9,7 +9,7 @@ import { Pagination } from "../elements/detail/index";
 const New = () => {
   const dispatch = useDispatch();
   const newList = useSelector((state) => state.card.list);
-  // console.log(newList);
+  console.log(newList);
 
   React.useEffect(() => {
     dispatch(itemActions.getNewDB());
