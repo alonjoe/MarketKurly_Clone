@@ -2,8 +2,6 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import card from "./modules/card";
 import user from "./modules/user";
@@ -23,14 +21,6 @@ const rootReducer = combineReducers({
   detail_user: detail_user,
   router: connectRouter(history),
 });
-
-const persistConfig = {
-  key: "root",
-  storage: storage,
-  whiteList: ["basket"],
-}
-
-const _persistReducer = persistReducer(persistConfig, rootReducer);
 
 const middlewares = [thunk.withExtraArgument({ history: history })];
 
@@ -52,13 +42,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-// let store = (initialStore) => createStore(_persistReducer, enhancer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
 
-let store = createStore(_persistReducer, enhancer);
-
-const persistor = persistStore(store);
-
-export {store, persistor}
-
-
-
+export default store();

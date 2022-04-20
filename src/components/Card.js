@@ -4,20 +4,24 @@ import Modal from "./Modal";
 import "../shared/App.css";
 
 import {priceUnit} from "../shared/Price";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 // 나중에 RESP말고 props로 받아서 뿌리기
 const Card = (props) => {
 
+  const history = useHistory();
   const item = props;
-
   const [modal, setModal] = useState(false);
 
   return (
     <React.Fragment>
       <Item>
         <div className="image">
-          <img style={{width: "100%"}} src={props.imgurl} alt="이미지"/>
+          <img 
+            onClick={() => { history.push("/detail") }}
+            style={{width: "100%"}} src={props.imgurl} alt="이미지"/>
         </div>
         <ModalBtn 
         // 모달창 펼치기
