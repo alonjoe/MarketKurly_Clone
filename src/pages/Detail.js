@@ -32,19 +32,7 @@ const Main = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    // dispatch(reviewActions.getReviewDB());
-    // dispatch(detailActions.getDetailDB());
-    axios({
-      method: "GET",
-      url: "http://13.125.11.137/api/product/detail/2",
-    }).then((response) => {
-      console.log("디테일");
-      console.log(response);
-    }).catch((error) => {
-      console.log(error);
-    })
-
-    console.log("디테일");
+    dispatch(detailActions.getDetailDB());
   }, []);
 
   const detail = useSelector((state) => state.detail.detail);
@@ -63,7 +51,7 @@ const Main = () => {
       setImgUrl(detail.imgurl);
       setLike(detail.like);
       setSalesUnit(detail.salesUnit);
-      setWeightVolume(detail.weightVolume);
+      setWeightVolume(detail.weigtVolume);
       setShippingType(detail.shippingType);
       setPacakagingType(detail.packagingType);
       setAllergyInfo(detail.allergyInfo);
@@ -103,7 +91,7 @@ const Main = () => {
                 판매단위
               </Description> 
               <Description dd>
-                {salesUnit}
+                {salesUnit? salesUnit: null}
               </Description>
             </Description>
             <Description dl>
@@ -131,14 +119,17 @@ const Main = () => {
                 {/* <Text size="12px" weight="400" color="#666" margin="4px 0 0">택배배송은 에코포장이 스티로폼으로 대체됩니다.</Text> */}
               </Description>
             </Description> 
-            <Description dl>
-              <Description dt>
-                알레르기정보
-              </Description> 
-              <Description dd>
-                {allergyInfo}
+            {allergyInfo? 
+              <Description dl>
+                <Description dt>
+                  알레르기정보
+                </Description> 
+                <Description dd>
+                  {allergyInfo}
+                </Description>
               </Description>
-            </Description>
+              : null
+            }
             <Description dl>
               <Description dt>
                 구매수량
