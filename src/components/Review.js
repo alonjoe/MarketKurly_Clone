@@ -4,10 +4,15 @@ import { history } from "../redux/configStore";
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space } from "../elements/detail/index";
 import { useSelector, useDispatch } from "react-redux";
 import { reviewCreators as reviewActions } from "../redux/modules/review";
+import ReviewDetail from "./ReviewDetail";
+
 
 const Review = (props) => {
   const dispatch = useDispatch();
   const review = React.useRef(null);
+  const [reviewDetailOpen, setReviewDetailOpen] = React.useState("none");
+  const reviewDetailClick = () => setReviewDetailOpen("inherit");
+
   const checkClick = (e) => {
     // console.log(e.target)
   }
@@ -41,21 +46,29 @@ const Review = (props) => {
               {reviewList? 
                   reviewList.map((review, idx) => {
                   return (
-                    <React.Fragment>
-                      <Table tr>
-                        <Table td align="center">{review.reviewid}</Table>
-                        <Table td>{review.title}</Table>
-                        <Table td align="center">{review.userName}</Table>
-                        <Table td align="center">{review.createdAt.split("T")[0]}</Table>
-                      </Table>
-                      <ReviewDetail>
-                        {review.content}
-                        <Button wrap margin="20px 0 0" justify="flex-end">
-                          {/* <Button subOutline margin="0 4px 0 0" >수정</Button> */}
-                          <Button _onClick={deleteReview} subOutline _key={review.reviewid}>삭제</Button>
-                        </Button>
-                      </ReviewDetail>
-                    </React.Fragment>
+                    <ReviewDetail 
+                      reviewid={review.reviewid} 
+                      title={review.title} 
+                      userName={review.userName}  
+                      createdAt={review.createdAt} 
+                      content={review.content}
+                      _onClick={deleteReview}>
+                    </ReviewDetail>
+                    // <React.Fragment>
+                    //   <Table tr _onClick={reviewDetailClick}>
+                    //     <Table td align="center">{review.reviewid}</Table>
+                    //     <Table td>{review.title}</Table>
+                    //     <Table td align="center">{review.userName}</Table>
+                    //     <Table td align="center">{review.createdAt.split("T")[0]}</Table>
+                    //   </Table>
+                    //   <ReviewDetail display={reviewDetailOpen}>
+                    //     {review.content}
+                    //     <Button wrap margin="20px 0 0" justify="flex-end">
+                    //       {/* <Button subOutline margin="0 4px 0 0" >수정</Button> */}
+                    //       <Button _onClick={deleteReview} subOutline _key={review.reviewid}>삭제</Button>
+                    //     </Button>
+                    //   </ReviewDetail>
+                    // </React.Fragment>
                   );
               }): null}
            </Table>
@@ -86,13 +99,13 @@ const Review = (props) => {
   )
 }
 
-const ReviewDetail = styled.div`
-  padding: 30px 20px;
-  width: 100%;
-  height: fit-content;
-  font-size: 12px;
-  border-bottom: 1px solid #e3e3e3;
-  ${(props) => (props.hide ? `display: none;` : "")};
-`;
+// const ReviewDetail = styled.div`
+//   padding: 30px 20px;
+//   width: 100%;
+//   height: fit-content;
+//   font-size: 12px;
+//   border-bottom: 1px solid #e3e3e3;
+//   ${(props) => (props.hide ? `display: none;` : "")};
+// `;
 
 export default Review;
