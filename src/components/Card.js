@@ -3,43 +3,45 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import "../shared/App.css";
 
-import {RESP} from "../redux/modules/response";
 import {priceUnit} from "../shared/Price";
 
 
 // 나중에 RESP말고 props로 받아서 뿌리기
-const Card = () => {
+const Card = (props) => {
+
+  const item = props;
 
   const [modal, setModal] = useState(false);
 
   return (
     <React.Fragment>
       <Item>
-        {/* imgurl 가져와서 넣기 */}
         <div className="image">
-          <img style={{width: "100%"}} src={RESP.imgurl} alt="이미지"/>
+          <img style={{width: "100%"}} src={props.imgurl} alt="이미지"/>
         </div>
         <ModalBtn 
+        // 모달창 펼치기
           onClick={() => { setModal(true); }}
           style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}>
         </ModalBtn>
+        {/* true일때만 보여주기 */}
         {modal === true 
-        ? <Modal getModal={modal} setModal={setModal}/>
+        ? <Modal getModal={modal} setModal={setModal} {...item}/>
         : null
         }
         
         <Info>
           {/* title넣기 */}
-          <Name>{RESP.title}</Name>
+          <Name>{props.title}</Name>
           <Cost>
-            {/* discount넣기 */}
-            <span className="dc">{RESP.discount}%</span>
+            {/* 할인율이 0이 아닐때만 보여주기 */}
+            <span className="dc">{props.discount === 0? null : `${props.discount}%`}</span>
             {/* 할인된가격 */}
-            <span className="price">{priceUnit(RESP.price - (RESP.price * (RESP.discount / 100)))}원</span>
-            {/* price */}
-            <span className="original">{priceUnit(RESP.price)}</span>
+            <span className="price">{priceUnit(props.price)}원</span>
+            {/* 원가격이 0이 아닐때만 보여주기 */}
+            <span className="original">{props.originals === "0" ? null : `${priceUnit(props.originals)}원`}</span>
             {/* desc 요청하기 */}
-            <span className="desc">오동토동한 어묵이 가득</span>
+            <span className="desc">{props.desc}</span>
           </Cost>
         </Info>
       </Item>
@@ -63,7 +65,7 @@ const Item = styled.div`
     transition:  0.5s;
   }
   .image > img:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
   }
 `;
 

@@ -10,7 +10,7 @@ const GET_BEST = "GET_BEST";
 
 // 액션생성함수 
 const getNew = createAction(GET_NEW, (newList) => ({ newList }));
-const getBest = createAction(GET_NEW, (bestList) => ({ bestList }));
+const getBest = createAction(GET_BEST, (bestList) => ({ bestList }));
 
 const initialState = {
   list: [],
@@ -18,17 +18,14 @@ const initialState = {
 
 // 미들웨어 (서버와 통신하는 함수. 줄거, 받아올거)
 const getNewDB = () => {
-  return function (dispatch, getState, {history}) {
+  return function (dispatch) {
     axios({
       method: "GET",
-      // url: "",
+      url: "http://13.125.11.137/api/product/new",
     }).then((response) => {
-      let newList = [];
-      const news = response.data;  //data.뭐들어갈지는 콘솔찍어보기
-      news.forEach((item) => {
-        newList.push({ productId: item.productId, ...item });
-      });
-      dispatch(getNew(newList));   //리듀서로 넘겨주는 행위(DB와 통신했으니 이제 넘겨주자!)
+      const news = response.data.newList;  //data.뭐들어갈지는 콘솔찍어보기
+      // console.log(news)
+      dispatch(getNew(news));   //리듀서로 넘겨주는 행위(DB와 통신했으니 이제 넘겨주자!)
     }).catch((error) => {
       console.log(error);
     })
@@ -36,17 +33,14 @@ const getNewDB = () => {
 }
 
 const getBestDB = () => {
-  return function (dispatch, getState, {history}) {
+  return function (dispatch) {
     axios({
       method: "GET",
-      // url: 'https://virtserver.swaggerhub.com/Ohjinwoo/clone/1.0.0/api/product/best',
+      url: "http://13.125.11.137/api/product/best",
     }).then((response) => {
-      let bestList = [];
-      const news = response.data;  //data.뭐들어갈지는 콘솔찍어보기
-      news.forEach((item) => {
-        bestList.push({ productId: item.productId, ...item });
-      });
-      dispatch(getBest(bestList));
+      // console.log(response.data.bestList);
+      const bests = response.data.bestList;  //data.뭐들어갈지는 콘솔찍어보기
+      dispatch(getBest(bests));
     }).catch((error) => {
       console.log(error);
     })
@@ -59,11 +53,11 @@ export default handleActions(
   {
     // 신상품리스트 리덕스에 넣기
     [GET_NEW]: (state, action) => produce(state, (draft) => {
-      console.log("신상품리스트 가져왔다.")
+      // console.log("신상품리스트 가져왔다.")
       draft.list = action.payload.newList;
     }),
     [GET_BEST]: (state, action) => produce(state, (draft) => {
-      console.log("베스트상품들 가져왔다.");
+      // console.log("베스트상품들 가져왔다.");
       draft.list = action.payload.bestList;
     }),
 
@@ -72,7 +66,9 @@ export default handleActions(
 )
 
 const actionsCreators = {
+  getNew,
   getNewDB,
+  getBest,
   getBestDB,
 
 }

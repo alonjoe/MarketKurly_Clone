@@ -27,8 +27,8 @@ const Header = () => {
             </ul> */}
             {/* 비로그인시 */}
             <ul>
-              <li>회원가입</li><p></p>
-              <li>로그인</li><p></p>
+              <li onClick={() => { history.push("/signup") }}>회원가입</li><p></p>
+              <li onClick={() => { history.push("/login") }}>로그인</li><p></p>
               <li>고객센터</li>
             </ul>
           </UserMenu>
@@ -50,7 +50,7 @@ const Header = () => {
             </form>
             <div className="icon"><GrLocation style={{width: "25px", height: "25px"}} /></div>
             <div className="icon"><FiHeart style={{width: "25px", height: "25px"}} /></div>
-            <div className="icon"><BsCart2 style={{width: "25px", height: "25px"}} /></div>
+            <div className="icon" onClick={() => { history.push("/basket") }}><BsCart2 style={{width: "25px", height: "25px"}} /></div>
           </Gnb>
         </Wrap>
       </Outter>
@@ -61,7 +61,7 @@ const Header = () => {
 export default Header;
 
 const Outter = styled.div`
-  border-bottom: 1px solid #eee;
+  box-shadow: 0px 1px 8px #eee;
 `;
 
 const Wrap = styled.div`
@@ -97,6 +97,7 @@ const UserMenu = styled.div`
   ul > li {
     font-size: 12px;
     padding: 0 12px;
+    cursor: pointer;
   }
   ul p::after {
     content: "";

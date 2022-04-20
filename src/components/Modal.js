@@ -1,15 +1,23 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actionsCreators as basketActions } from "../redux/modules/basket";
+
+import { priceUnit } from "../shared/Price";
 
 
 const Modal = (props) => {
 
+  const dispatch = useDispatch();
+
+  // 모달창 열고 닫기위해 props로 가져오는 부분
   let setModal = props.setModal;
   let getModal = props.getModal;
 
   const [quantity, setQuantity] = useState(1);
+  const [total, setTotal] = useState();
   
+  // 수량 +,-하는 함수
   const onclickPlus = useCallback(() => {
 		if (quantity > 99) return;
 		setQuantity(quantity + 1);
@@ -19,12 +27,21 @@ const Modal = (props) => {
 		setQuantity(quantity - 1);
 	}, [quantity]);
 
+  // console.log(props.productbestId, props.productnewId, quantity)
+  const addBasket = () => {
+    if (props.productbestId) {
+      dispatch(basketActions.addBestBasketDB(props.productbestId, quantity));
+    } else {
+      dispatch(basketActions.addNewBasketDB(props.productnewId, quantity));
+    }
+  }
+
   return (
     <Wrap>
       <MyCart>
-        <p>[모두의맛집] 알꼬막 짬뽕</p>
+        <p>{props.title}</p>
         <Option>
-          <span>16,000원</span>
+          <span>{priceUnit(props.price)}원</span>
           <div style={{display: "flex", position: "relative"}}>
             <button className="minusBtn" onClick={onclickMinus}>감소</button>
             <input readOnly="readnly" value={quantity} />
@@ -33,15 +50,16 @@ const Modal = (props) => {
         </Option>
         <Total>
           <span>합계</span>
-          <span>16,000원</span>
+          <span>{priceUnit(props.price * quantity)}원</span>
         </Total>
         <Point>
           <span>적립</span>
           <span>로그인 후, 회원할인가와 적립혜택 제공</span>
         </Point>
         <ButtonDiv>
+          {/* props로 받아온걸로 true, false 수정 */}
           <button onClick={() => { setModal(!getModal) }}>취소</button>
-          <button>장바구니 담기</button>
+          <button onClick={ addBasket }>장바구니 담기</button>
         </ButtonDiv>
       </MyCart>
 
@@ -147,7 +165,7 @@ const Total = styled.div`
 `;
 
 const Point = styled.div`
-margin: 6px 0 20px 0;
+  margin: 6px 0 20px 0;
   text-align: right;
   span:first-child {
     color: #fff;
