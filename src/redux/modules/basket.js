@@ -16,7 +16,25 @@ const addBasket = createAction(ADD_BASKET, (basket) => ({ basket }));
 
 
 // 미들웨어
-
+const addBasketDB = (productId, quantity) => {
+  return function (dispatch) {
+    axios({
+      method: "POST",
+      url: `http://13.125.11.137/api/modal/cart/productId`,
+      data: {
+        productId: productId,
+        amount: quantity,
+      },
+      headers: {
+        
+      }
+    }).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+}
 
 
 // 리듀서
@@ -32,6 +50,7 @@ export default handleActions(
 
 const actionsCreators = {
   addBasket,
+  addBasketDB,
 }
 
 export { actionsCreators }

@@ -33,8 +33,8 @@ const New = () => {
             <li>높은 가격순</li>
           </ul>
         </SortMenu>
-        {/* 맵으로 카드 돌리기 */}
         <List>
+          {/* 맵으로 카드 돌리기, key값은 unique하게, 배열풀어서 속성으로 넘겨주기 */}
           {newList.map((v, i) => {
             return <Card key={v.productnewId} {...v} />
           })}

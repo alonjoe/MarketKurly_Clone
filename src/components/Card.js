@@ -16,14 +16,15 @@ const Card = (props) => {
   return (
     <React.Fragment>
       <Item>
-        {/* imgurl 가져와서 넣기 */}
         <div className="image">
           <img style={{width: "100%"}} src={props.imgurl} alt="이미지"/>
         </div>
         <ModalBtn 
+        // 모달창 펼치기
           onClick={() => { setModal(true); }}
           style={{border: "none", background: "url(https://res.kurly.com/pc/ico/2010/ico_cart.svg) no-repeat 50% 50%", cursor: "pointer"}}>
         </ModalBtn>
+        {/* true일때만 보여주기 */}
         {modal === true 
         ? <Modal getModal={modal} setModal={setModal} {...item}/>
         : null
@@ -33,12 +34,12 @@ const Card = (props) => {
           {/* title넣기 */}
           <Name>{props.title}</Name>
           <Cost>
-            {/* discount넣기 */}
+            {/* 할인율이 0이 아닐때만 보여주기 */}
             <span className="dc">{props.discount === 0? null : `${props.discount}%`}</span>
             {/* 할인된가격 */}
             <span className="price">{priceUnit(props.price)}원</span>
-            {/* price */}
-            <span className="original">{+props.originals}원</span>
+            {/* 원가격이 0이 아닐때만 보여주기 */}
+            <span className="original">{props.originals === "0" ? null : `${priceUnit(props.originals)}원`}</span>
             {/* desc 요청하기 */}
             <span className="desc">{props.desc}</span>
           </Cost>

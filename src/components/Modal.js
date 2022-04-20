@@ -1,17 +1,23 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actionsCreators as basketActions } from "../redux/modules/basket";
 
 import { priceUnit } from "../shared/Price";
 
 
 const Modal = (props) => {
 
+  const dispatch = useDispatch();
+
+  // 모달창 열고 닫기위해 props로 가져오는 부분
   let setModal = props.setModal;
   let getModal = props.getModal;
 
   const [quantity, setQuantity] = useState(1);
+  const [total, setTotal] = useState();
   
+  // 수량 +,-하는 함수
   const onclickPlus = useCallback(() => {
 		if (quantity > 99) return;
 		setQuantity(quantity + 1);
@@ -20,6 +26,11 @@ const Modal = (props) => {
 		if (quantity < 2) return;
 		setQuantity(quantity - 1);
 	}, [quantity]);
+
+  console.log(props.productbestId, quantity)
+  const addBasket = () => {
+    dispatch(basketActions.addBasketDB(props.productbestId, quantity));
+  }
 
   return (
     <Wrap>
@@ -42,8 +53,9 @@ const Modal = (props) => {
           <span>로그인 후, 회원할인가와 적립혜택 제공</span>
         </Point>
         <ButtonDiv>
+          {/* props로 받아온걸로 true, false 수정 */}
           <button onClick={() => { setModal(!getModal) }}>취소</button>
-          <button>장바구니 담기</button>
+          <button onClick={ addBasket }>장바구니 담기</button>
         </ButtonDiv>
       </MyCart>
 
