@@ -21,7 +21,7 @@ const Login = props => {
         console.log(id, pwd)
         
         dispatch(userActions.loginMD(id, pwd));
-        
+      
     };
 
     const signUpBtn = () => {

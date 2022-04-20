@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from 'styled-components'
 
 const Input = (props) => {
@@ -8,6 +8,7 @@ const Input = (props) => {
     placeholder,
     width,
     height,
+    _ref,
   } = props;
 
   const styles = {
@@ -20,14 +21,14 @@ const Input = (props) => {
   if (textarea) {
     return (
       <React.Fragment>
-        <TextArea {...styles} placeholder={placeholder}/>
+        <TextArea ref={_ref} {...styles} placeholder={placeholder}/>
       </React.Fragment>
     )
   }
 
   return (
     <React.Fragment>
-      <TextInput {...styles} placeholder={placeholder}/>
+      <TextInput ref={_ref} {...styles} placeholder={placeholder}/>
     </React.Fragment>
   )
 

@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { Apis } from "../../shared/api";
+import axios from "axios";
+
 
 // 액션타입
 const GET_Detail = "GET_Detail";
@@ -18,9 +20,9 @@ const getDetailDB = () => {
   return function (dispatch, getState, {history}) {
     Apis.loadDetail()
     .then(function (response) {
-      console.log(response.data)
-      dispatch(getDetail(response.data));
-      console.log("성공")
+      console.log(response);
+      dispatch(getDetail(response.data.Detailpage[0]));
+      console.log("디테일 가져옴 성공");
     })
     .catch(function (error) {
       console.log(error);
@@ -34,7 +36,7 @@ const getDetailDB = () => {
 export default handleActions(
   {
     [GET_Detail]: (state, action) => produce(state, (draft) => {
-      console.log("디테일 가져왔다.")
+      console.log("디테일 가져왔다.");
       draft.detail = action.payload.detail;
     }),
 

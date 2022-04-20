@@ -20,6 +20,7 @@ const Button = (props) => {
       sub,
       subOutline,
       weight,
+      _key,
     } = props;
 
     const styles = {
@@ -39,7 +40,7 @@ const Button = (props) => {
 
     if (wrap) {
       return (
-        <WrapButtons {...styles}>
+        <WrapButtons {...styles} key={_key}>
           {children}
         </WrapButtons>
       )
@@ -47,7 +48,7 @@ const Button = (props) => {
 
     if (icon) {
       return (
-        <IconButton {...styles} onClick={_onClick}>
+        <IconButton {...styles} onClick={_onClick} key={_key}>
           {children}
         </IconButton>
       )
@@ -55,7 +56,7 @@ const Button = (props) => {
 
     if (iconOutline) {
       return (
-        <IconOutlineButton {...styles} onClick={_onClick}>
+        <IconOutlineButton {...styles} onClick={_onClick} key={_key}>
           {children}
         </IconOutlineButton>
       )
@@ -63,7 +64,7 @@ const Button = (props) => {
 
     if (sub) {
       return (
-        <SubButton {...styles} onClick={_onClick}>
+        <SubButton {...styles} onClick={_onClick} key={_key}>
           {children}
         </SubButton>
       )
@@ -71,20 +72,21 @@ const Button = (props) => {
 
     if (subOutline) {
       return (
-        <SubOutlineButton {...styles} onClick={_onClick}>
+        <SubOutlineButton {...styles} onClick={_onClick} value={_key}>
           {children}
         </SubOutlineButton>
       )
     }
 
     return (
-      <ElButton {...styles} onClick={_onClick}>
+      <ElButton {...styles} onClick={_onClick} key={_key}>
           {children}
       </ElButton>
     );
 };
 
 Button.defaultProps = {
+  _key: 0,
   _onClick: () => {},
   bg: "#5f0081",
   color: "white",

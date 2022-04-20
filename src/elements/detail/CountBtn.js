@@ -4,8 +4,8 @@ import styled from "styled-components";
 const CountBtn = (props) => {
 
   const {
-    _onClick,
-    __onClick,
+    _onClickMinus,
+    _onClickPlus,
     children,
     color,
     bg,
@@ -41,7 +41,7 @@ const CountBtn = (props) => {
 
   if (minus) {
     return (
-      <MinusButton {...styles} onClick={_onClick}>
+      <MinusButton {...styles}>
         {children}
         하이
       </MinusButton>
@@ -58,7 +58,7 @@ const CountBtn = (props) => {
 
   if (plus) {
     return (
-      <PlusButton {...styles} onClick={__onClick}>
+      <PlusButton {...styles}>
         {children}
       </PlusButton>
     )
@@ -66,9 +66,9 @@ const CountBtn = (props) => {
 
   return (
     <WarpCount {...styles}>
-      <MinusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
+      <MinusButton onClick={_onClickMinus} {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_minus_on.svg">수량내리기</MinusButton>
       <Input {...styles} type="number" readOnly={true} value={value}/>
-      <PlusButton {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
+      <PlusButton onClick={_onClickPlus} {...styles} imgUrl="https://res.kurly.com/pc/ico/2010/ico_plus_on.svg">수량올리기</PlusButton>
     </WarpCount>
   );
 };

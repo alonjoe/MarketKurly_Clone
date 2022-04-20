@@ -4,10 +4,15 @@ import { history } from "../redux/configStore";
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space } from "../elements/detail/index";
 import { useSelector, useDispatch } from "react-redux";
 import { reviewCreators as reviewActions } from "../redux/modules/review";
+import ReviewDetail from "./ReviewDetail";
 
-const Review = () => {
+
+const Review = (props) => {
   const dispatch = useDispatch();
   const review = React.useRef(null);
+  const [reviewDetailOpen, setReviewDetailOpen] = React.useState("none");
+  const reviewDetailClick = () => setReviewDetailOpen("inherit");
+
   const checkClick = (e) => {
     // console.log(e.target)
   }
@@ -15,13 +20,17 @@ const Review = () => {
   React.useEffect(() => {
     dispatch(reviewActions.getReviewDB());
     window.addEventListener('click', checkClick);
-    
   }, []);
 
   
-  const reviewList = useSelector((state) => state.review.review);
+  const reviewdata = useSelector((state) => state.review.review);
+  const key = Object.keys([...reviewdata]);
+  const reviewList = [...reviewdata].sort((a, b) => a - b);
 
-  
+  const deleteReview = (current) => {
+    const reviewid = Number(current.target.value)
+    dispatch(reviewActions.deleteReviewDB(reviewid));
+  }
 
   return (
     <React.Fragment>
@@ -30,28 +39,22 @@ const Review = () => {
             <Table tbody>
               <Table tr>
                 <Table th align="center">작성번호</Table>
-                <Table th>아이디</Table>
+                <Table th>내용</Table>
                 <Table th align="center">작성자</Table>
                 <Table th align="center">작성일</Table>
               </Table>
               {reviewList? 
                   reviewList.map((review, idx) => {
                   return (
-                    <React.Fragment>
-                      <Table tr>
-                        <Table td align="center">{review.reviewId}</Table>
-                        <Table td>{review.title}</Table>
-                        <Table td align="center">{review.userName}</Table>
-                        <Table td align="center">{review.createdAt}</Table>
-                      </Table>
-                      <ReviewDetail>
-                        {review.title}
-                        <Button wrap margin="20px 0 0" justify="flex-end">
-                          <Button subOutline margin="0 4px 0 0" >수정</Button>
-                          <Button subOutline>삭제</Button>
-                        </Button>
-                      </ReviewDetail>
-                    </React.Fragment>
+                    <ReviewDetail 
+                      index={idx}
+                      reviewid={review.reviewid}
+                      title={review.title} 
+                      userName={review.userName}  
+                      createdAt={review.createdAt} 
+                      content={review.content}
+                      _onClick={deleteReview}>
+                    </ReviewDetail>
                   );
               }): null}
            </Table>
@@ -82,12 +85,13 @@ const Review = () => {
   )
 }
 
-const ReviewDetail = styled.div`
-  padding: 30px 20px;
-  width: 100%;
-  height: fit-content;
-  font-size: 12px;
-  // ${(props) => (props.hide ? `display: none;` : "")};
-`;
+// const ReviewDetail = styled.div`
+//   padding: 30px 20px;
+//   width: 100%;
+//   height: fit-content;
+//   font-size: 12px;
+//   border-bottom: 1px solid #e3e3e3;
+//   ${(props) => (props.hide ? `display: none;` : "")};
+// `;
 
 export default Review;
