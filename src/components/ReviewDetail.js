@@ -38,7 +38,7 @@ return (
       <Table td align="center">{index+1}</Table>
       <Table td>{title}</Table>
       <Table td align="center">{userName}</Table>
-      <Table td align="center">{createdAt.split("T")[0]}</Table>
+      <Table td align="center">{createdAt}</Table>
     </Table>
     <ReviewDetailOpen display={reviewDetailOpen}>
       {content}
