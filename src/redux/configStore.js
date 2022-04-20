@@ -10,6 +10,7 @@ import user from "./modules/user";
 import basket from "./modules/basket";
 import detail from "./modules/detail";
 import review from "./modules/review";
+import detail_user from "./modules/review";
 
 export const history = createBrowserHistory();
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
   basket: basket,
   detail: detail,
   review: review,
-
+  detail_user: detail_user,
   router: connectRouter(history),
 });
 

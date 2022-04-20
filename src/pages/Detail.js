@@ -15,8 +15,9 @@ const Main = () => {
   const [title, setTitle] = React.useState(null);
   const [subtitle, setSubtitle] = React.useState(null);
   const [price, setPrice] = React.useState(0);
+  const priceWithComma = price
   const [discount, setDiscount] = React.useState(0);
-  const discountedPrice = price-(price/100*discount)
+  const discountedPrice = (price-(price/100*discount))
   const [imgUrl, setImgUrl] = React.useState(null);
   const [like, setLike] = React.useState(null);
   const [salesUnit, setSalesUnit] = React.useState(null);
@@ -27,31 +28,29 @@ const Main = () => {
   const [notification, setNotification] = React.useState(null);
   const [amount, setAmount] = React.useState(1);
   const TotalPrice = discountedPrice*amount
+  const withComma = (number) => number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    // dispatch(reviewActions.getReviewDB());
-    // dispatch(detailActions.getDetailDB());
-    axios({
-      method: "GET",
-      url: "http://13.125.11.137/api/product/detail/2",
-    }).then((response) => {
-      console.log("디테일");
-      console.log(response);
-    }).catch((error) => {
-      console.log(error);
-    })
-
-    console.log("디테일");
+    dispatch(detailActions.getDetailDB());
+    if (localStorage.getItem("token")) {
+      dispatch(reviewActions.getUserInfo());
+    }
   }, []);
 
   const detail = useSelector((state) => state.detail.detail);
   const reviewList = useSelector((state) => state.review.review);
 
-  const changeAmount = () => {
-    setAmount(amount=+1)
+  const MinusAmount = () => {
+    if (amount > 1) {
+      setAmount(amount-1);
+    }
+  }
+
+  const PlusAmount = () => {
+    setAmount(amount+1);
   }
 
   React.useEffect(() => {
@@ -63,7 +62,7 @@ const Main = () => {
       setImgUrl(detail.imgurl);
       setLike(detail.like);
       setSalesUnit(detail.salesUnit);
-      setWeightVolume(detail.weightVolume);
+      setWeightVolume(detail.weigtVolume);
       setShippingType(detail.shippingType);
       setPacakagingType(detail.packagingType);
       setAllergyInfo(detail.allergyInfo);
@@ -90,20 +89,19 @@ const Main = () => {
               회원할인가
             </Text>
             <Text lineheight="30px" weight="700" size="28px">
-              {discountedPrice}
-              {/* .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") */}
+              {withComma(discountedPrice)}
               <Text span margin="0 7px 0 2px" weight="700" size="18px">원</Text>
               <Text span weight="700" size="28px" color="#fa622f">{discount}%</Text>
             </Text> 
             <Text margin="7px 0 19px" lineThrough size="16px" color="#999">
-              {price}원
+              {withComma(price)}원
             </Text>
             <Description dl>
               <Description dt>
                 판매단위
               </Description> 
               <Description dd>
-                {salesUnit}
+                {salesUnit? salesUnit: null}
               </Description>
             </Description>
             <Description dl>
@@ -131,27 +129,30 @@ const Main = () => {
                 {/* <Text size="12px" weight="400" color="#666" margin="4px 0 0">택배배송은 에코포장이 스티로폼으로 대체됩니다.</Text> */}
               </Description>
             </Description> 
-            <Description dl>
-              <Description dt>
-                알레르기정보
-              </Description> 
-              <Description dd>
-                {allergyInfo}
+            {allergyInfo? 
+              <Description dl>
+                <Description dt>
+                  알레르기정보
+                </Description> 
+                <Description dd>
+                  {allergyInfo}
+                </Description>
               </Description>
-            </Description>
+              : null
+            }
             <Description dl>
               <Description dt>
                 구매수량
               </Description> 
               <Description dd>
-                <CountBtn value={amount} _onClick={changeAmount}>
+                <CountBtn value={amount} _onClickMinus={MinusAmount} _onClickPlus={PlusAmount}>
                 </CountBtn>
               </Description>
             </Description>
             <Text align="right" margin="30px 0 20px">
               <Text span weight="700" color="#333" size="13px">총 상품금액 :</Text> 
                 <Text span lineheight="32px" margin="0 8px 0" weight="700" color="#333" size="32px">
-                  {TotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  {withComma(TotalPrice)}
                   <Text span margin="0 0 0 2px" weight="700" color="#333" size="20px">원</Text>
               </Text>
             </Text>

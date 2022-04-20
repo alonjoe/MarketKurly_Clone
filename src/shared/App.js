@@ -14,6 +14,7 @@ import Detail from "../pages/Detail";
 import Flex from "../elements/Flex";
 import Write from "../pages/Write";
 import Basket from '../pages/Basket';
+// import PopupPostCode from '../components/PopupPostCode';
 
 function App() {
   return (

@@ -4,18 +4,22 @@ import { Apis } from "../../shared/api";
 
 // import moment from "moment";
 
+import axios from "axios";
+
+
 // 액션타입
 const GET_Review = "GET_Review";
 const WRITE_Review = "WRITE_Review";
 const EDIT_Review = "EDIT_Review";
 const DELETE_Review = "EDIT_Review";
-
+const GET_User = "GET_User";
 
 // 액션생성함수 
 const getReview = createAction(GET_Review, (review) => ({ review }));
 const writeReview = createAction(WRITE_Review, (review) => ({ review }));
 const editReview = createAction(EDIT_Review, (review) => ({ review }));
 const deleteReview = createAction(DELETE_Review, (review) => ({ review }));
+const getUser = createAction(GET_User, (detail_user) => ({ detail_user }));
 
 const initialState = {
   review: "",
@@ -28,21 +32,24 @@ const initialReview = {
   userName: "",
   // createdAt: moment().format("YYYY-MM-DD hh:mm:ss"),
   productId: "",
-  reviewId: "",
+  reviewid: "",
 };
+
+// a.sort(function (a, b) { return b - a })
+
 
 // 미들웨어 (서버와 통신하는 함수. 줄거, 받아올거)
 const getReviewDB = () => {
   return function (dispatch, getState, {history}) {
     Apis.loadReview()
     .then(function (response) {
-      let post_list = response.data.map((post) => {
+      let post_list = response.data.reviewList.map((review) => {
         let keys = Object.keys(initialReview);
         let _post = keys.reduce(
           (acc, cur) => {
-              return { ...acc, [cur]: post[cur] };
+            return { ...acc, [cur]: review[cur] };
           },
-          { postId: post._id }
+          { postId: review._id }
         );
         return _post;
       });
@@ -57,19 +64,20 @@ const getReviewDB = () => {
 
 const writeReviewDB = (inputTitle, inputContent) => {
   return function (dispatch, getState, {history}) {
-    console.log({...initialReview}) 
     const postReview = {
-      ...initialReview,
       title: inputTitle,
       content: inputContent,
     };
+    console.log(postReview)
     Apis.writeReview(postReview)
     .then(function (response) {
-      console.log(response)
+      console.log(response);
+      alert(response.data.msg);
+      history.goBack();
       })
     .catch(function (error) {
       console.log(error);
-      console.log("실패")
+      console.log("실패");
     });
   }
 }
@@ -78,7 +86,6 @@ const editReviewDB = (inputTitle, inputContent) => {
   return function (dispatch, getState, {history}) {
     console.log({...initialReview}) 
     const postReview = {
-      ...initialReview,
       title: inputTitle,
       content: inputContent,
     };
@@ -94,23 +101,70 @@ const editReviewDB = (inputTitle, inputContent) => {
   }
 }
 
-const deleteReviewDB = (inputTitle, inputContent) => {
+const deleteReviewDB = (reviewId) => {
+  console.log(reviewId);
   return function (dispatch, getState, {history}) {
-    console.log({...initialReview}) 
-    const postReview = {
-      ...initialReview,
-      title: inputTitle,
-      content: inputContent,
-    };
-    console.log(postReview)
-    Apis.writeReview(postReview)
-    .then(function (response) {
-      console.log(response)
+    axios({
+      method: "delete",
+      url: "http://13.125.11.137/api/review/2",
+      data: {
+        reviewId: reviewId,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
       })
+      .then(function (response) {
+        console.log(response);
+        alert(response.data.msg);
+        window.location.reload();
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+  }
+}
+
+const getUserInfo = () => {
+  console.log('---Run getUserInfo')
+  return function (dispatch, getState, {history}) {
+    axios({
+      method: "get",
+      url: "http://13.125.11.137/api/users/me",
+      data: {
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      dispatch(getUser(response.data.user));
+    })
     .catch(function (error) {
-      console.log(error);
-      console.log("실패")
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
     });
+  
   }
 }
 
@@ -132,11 +186,13 @@ export default handleActions(
       draft.review = action.payload.review;
     }),
     [DELETE_Review]: (state, action) => produce(state, (draft) => {
-      console.log("리뷰 삭제")
+      console.log("리뷰 삭제");
       let new_review_list = draft.review.filter(
         (review) => review.reivewId !== action.payload.reivewId
-      );
-      draft.review = [...new_review_list];
+      )
+    }),
+    [GET_User]: (state, action) => produce(state, (draft) => {
+      draft.detail_user = action.payload.detail_user;
     }),
   },
   initialState
@@ -147,6 +203,7 @@ const reviewCreators = {
   writeReviewDB,
   editReviewDB,
   deleteReviewDB,
+  getUserInfo,
 }
 
 export { reviewCreators }

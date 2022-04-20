@@ -11,6 +11,7 @@ const Table = (props) => {
     td,
     children,
     align,
+    _onClick,
   } = props;
 
   const styles = {
@@ -19,31 +20,31 @@ const Table = (props) => {
 
   if (table) {
     return (
-      <TableWrap {...styles}>{children}</TableWrap>
+      <TableWrap {...styles} onClick={_onClick}>{children}</TableWrap>
     );
   }
 
   if (tbody) {
     return (
-      <Tbody {...styles}>{children}</Tbody>
+      <Tbody {...styles} onClick={_onClick}>{children}</Tbody>
     );
   }
 
   if (tr) {
     return (
-      <Tr {...styles}>{children}</Tr>
+      <Tr {...styles} onClick={_onClick}>{children}</Tr>
     );
   }
 
   if (th) {
     return (
-      <Th {...styles}>{children}</Th>
+      <Th {...styles} onClick={_onClick}>{children}</Th>
     );
   }
 
   if (td) {
     return (
-      <Td {...styles}>{children}</Td>
+      <Td {...styles} onClick={_onClick}>{children}</Td>
     );
   }
 
@@ -52,6 +53,7 @@ const Table = (props) => {
 Table.defaultProps = {
   gridColoumn: "auto auto",
   align: "left",
+  _onClick: () => {},
 };
 
 const TableWrap = styled.div`
