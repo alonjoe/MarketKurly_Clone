@@ -12,12 +12,16 @@ import { history } from "../redux/configStore";
 
 const Login = props => {
     const dispatch = useDispatch();
-    const ref = React.useRef([]);
+    const inputRefID = React.useRef();
+    const inputRefPW = React.useRef();
 
     const loginBtn = () => {
-        const id = ref.current[0].value;
-        const pwd = ref.current[1].value;
+        const id = inputRefID.current.value;
+        const pwd = inputRefPW.current.value;
+        console.log(id, pwd)
+        
         dispatch(userActions.loginMD(id, pwd));
+        
     };
 
     const signUpBtn = () => {
@@ -40,6 +44,7 @@ const Login = props => {
                     fontSize="14px"
                     outline="none"
                     padding="0 0 0 16px"
+                    _ref={inputRefID}
                 />
                 <InputBox 
                     margin="12px 0"
@@ -51,6 +56,7 @@ const Login = props => {
                     fontSize="14px"
                     outline="none"
                     padding="0 0 0 16px"
+                    _ref={inputRefPW}
                 />
                 <Flex>
                     <Flex

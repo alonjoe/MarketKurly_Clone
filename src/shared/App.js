@@ -13,6 +13,7 @@ import New from '../components/New';
 import Detail from "../pages/Detail";
 import Flex from "../elements/Flex";
 import Write from "../pages/Write";
+// import PopupPostCode from '../components/PopupPostCode';
 
 function App() {
   return (

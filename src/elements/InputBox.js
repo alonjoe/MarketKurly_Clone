@@ -2,7 +2,8 @@ import { reduce } from "lodash";
 import React from "react";
 import styled from "styled-components";
 
-const InputBox = props => {
+const InputBox = React.forwardRef((props, ref) => {
+    //forwardRef 는 DOM에 refs 를 전달한다.
     const {
         margin,
         type,
@@ -20,6 +21,7 @@ const InputBox = props => {
         ph,
         ol, //outline
         ac,
+        _ref,
     } = props;
 
     const styles = { 
@@ -39,14 +41,14 @@ const InputBox = props => {
         // borderradius : br,
     };
     
-
     return (
         <InputContainer
             {...styles}
+            ref={_ref}
         >
         </InputContainer>
     );
-};
+});
 
 InputBox.defaultProps = {
     margin: "",
@@ -74,6 +76,7 @@ const InputContainer = styled.input`
     border-radius: ${props => props.br};
     accent-color: ${props => props.ac};
     border-radius: ${props => props.borderR};
+
 `;
 
 export default InputBox;

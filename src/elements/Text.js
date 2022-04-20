@@ -66,9 +66,9 @@ const Text = props => {
     text-align: ${props => props.textAlign};
     padding: ${props => props.padding};
     background-color: ${props => props.bg};
-    border-radius: ${props => props.borderR};
-    line-heihgt: ${props => props.lineheight};
-    ${props => props.disabled ? "user-select: none" : ''};
+    /* border-radius: ${props => props.borderR}; */
+    /* line-heihgt: ${props => props.lineheight}; */
+    /* ${props => props.disabled ? "user-select: none" : ''}; */
   `;
   
   export default Text;
