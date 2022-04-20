@@ -20,9 +20,9 @@ Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
 )}`;
 
 export const Apis = {
-  loadDetail: (productId) => Api.get("api/product/detail/:2"),
-  loadReview: (productId) => Api.get(`api/review/:2`),
-  writeReview: (productId, contents) => Api.post(`api/review/:2`, contents),
+  loadDetail: (productId) => Api.get("api/product/detail/2"),
+  loadReview: (productId) => Api.get(`api/review/2`),
+  writeReview: (productId, contents) => Api.post(`api/review/2`, contents),
   // editReview: (reviewId) => swaggerApi.put(`api/review`),
-  deleteReview: (productId, reviewId) => Api.delete(`api/review/:2`, reviewId),
+  deleteReview: (productId, reviewId) => Api.delete(`api/review/2`, reviewId),
 };
