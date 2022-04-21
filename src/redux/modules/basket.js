@@ -20,7 +20,7 @@ const deleteGoods = createAction(DELETE_GOODS, (basket) => ({ basket }));
 
 // 신상품 장바구니에 추가하기 
 const addNewBasketDB = (productnewId, quantity) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   return function (dispatch) {
     axios({
       method: "POST",
@@ -40,7 +40,7 @@ const addNewBasketDB = (productnewId, quantity) => {
 }
 // 베스트상품 장바구니에 추가하기
 const addBestBasketDB = (productbestId, quantity) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   return function (dispatch) {
     axios({
       method: "POST",
@@ -84,7 +84,7 @@ const getBasketDB = () => {
 
 // 장바구니페이지 상품 삭제
 const deleteGoodsDB = (cartId) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   return function (dispatch) {
     axios({
       method: "DELETE",

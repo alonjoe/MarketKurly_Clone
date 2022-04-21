@@ -15,7 +15,7 @@ const subApi = axios.create({
   baseURL: "https://624ff4c4e3e5d24b34192201.mockapi.io/",
 });
 
-Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
+Api.defaults.headers.common["authorization"] = `Bearer ${sessionStorage.getItem(
     "token"
 )}`;
 
@@ -28,6 +28,8 @@ export const Apis = {
   },
   loadReview: (productId) => Api.get("api/product/detail/2"),
   writeReview: (contents, productId) => {
+    const session = sessionStorage.getItem('token')
+    console.log(session)
     console.log ("--Run writeReview");
     console.log (contents);
     return Api.post("api/review/2", contents);
@@ -35,6 +37,8 @@ export const Apis = {
   // editReview: (reviewId) => swaggerApi.put(`api/review`),
   deleteReview: (reviewId, productId) => {
     console.log ("--Run deleteReview");
+    const session = sessionStorage.getItem('token')
+    console.log(session)
     console.log (reviewId);
     Api.delete("api/review/2", reviewId);
   }

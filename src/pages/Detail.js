@@ -33,7 +33,7 @@ const Main = () => {
       console.log('---디테일 있음')
     };
     // dispatch(detailActions.getDetailDB());
-    if (localStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
       dispatch(reviewActions.getUserInfo());
     }
     // window.location.reload();
