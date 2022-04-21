@@ -20,10 +20,15 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userAction } from '../redux/modules/user';
 // import PopupPostCode from '../components/PopupPostCode';
 
-function App() {
+function App(sessionStorage) {
   const dispatch = useDispatch()
   React.useEffect (() => {
     dispatch(userAction.userInfo())
+    if (sessionStorage.token === true) {
+      window.location.href="/"
+    } else {
+      console.log("다시 로그인해주세요.")
+    }
     console.log('hihihihihi')
   });
   return (
