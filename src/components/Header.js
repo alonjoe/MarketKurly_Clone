@@ -10,28 +10,49 @@ import { BsCart2 } from "react-icons/bs";
 
 
 import Flex from "../elements/Flex";
+import session from "redux-persist/lib/storage/session";
+import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = (props) => {
   // const history = useHistory();
 
+  const is_login = useSelector((state) => state.user.is_login)
+  const is_Session = sessionStorage.getItem("token");
+  // const d_Session = sessionStorage.removeItem("token");
+  // const deleteToken = localStorage.clear();
+
+  // window.location.reload(false)
+  
+  
   return (
     <React.Fragment>
       <Outter>
         <Wrap>
           <UserMenu>
             <img src="https://res.kurly.com/pc/service/common/2011/delivery_210801.png" alt="샛별, 택배 배송안내" width="121" height="22"/>
-            {/* 조건걸어서 로그인시 */}
-            {/* <ul>
-              <a><li>000 님</li></a><p></p>
-              <a><li>고객센터</li></a><p></p>
-            </ul> */}
-            {/* 비로그인시 */}
-            <ul>
-              <li onClick={() => { history.push("/signup") }}>회원가입</li><p></p>
-              <li onClick={() => { history.push("/login") }}>로그인</li><p></p>
-              <li>고객센터</li>
-            </ul>
+            {is_Session || is_login ?  (
+              <div>
+                {/* 조건걸어서 로그인시 */}
+                <ul>
+                  {/* <a><li>안녕하세요 ${name} 님</li></a><p></p> */}
+                  <button><li onClick={() => {sessionStorage.clear(); window.location.href="/"}} >로그아웃</li></button><p></p>
+                  
+                  <a><li>고객센터</li></a><p></p>
+                </ul>
+              </div>
+              ) : (
+              <div>
+                {/* 비로그인시 */}
+                <ul>
+                  <li onClick={() => { history.push("/signup") }}>회원가입</li><p></p>
+                  <li onClick={() => { history.push("/login") }}>로그인</li><p></p>
+                  <li>고객센터</li>
+                </ul>
+              </div>
+            )}
+          
           </UserMenu>
+          
           <Box>
             <img src="https://res.kurly.com/images/marketkurly/logo/logo_x2.png" alt="마켓컬리 로고" 
               onClick={() => { history.push("/") }} style={{cursor: "pointer"}} />
@@ -57,6 +78,7 @@ const Header = () => {
     </React.Fragment>
   )
 }
+
 
 export default Header;
 
