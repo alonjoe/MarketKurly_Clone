@@ -69,12 +69,12 @@ const Main = () => {
               회원할인가
             </Text>
             <Text lineheight="30px" weight="700" size="28px">
-              {detail? withComma(detail.price-(detail.price/100*detail.discount)): null}
+              {detail? withComma(detail.price): null}
               <Text span margin="0 7px 0 2px" weight="700" size="18px">원</Text>
               <Text span weight="700" size="28px" color="#fa622f">{detail? detail.discount:null}%</Text>
             </Text> 
             <Text margin="7px 0 19px" lineThrough size="16px" color="#999">
-              {detail? withComma(detail.price): null}원
+              {detail? withComma(Math.floor(detail.price * (1 + detail.discount/100))): null}원
             </Text>
             <Description dl>
               <Description dt>
