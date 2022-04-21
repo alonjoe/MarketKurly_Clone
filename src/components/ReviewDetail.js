@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, CountBtn, Space } from "../elements/detail/index";
 import { useSelector, useDispatch } from "react-redux";
-import ReviewDetailOpen from "./ReviewDetailOpen";
+import ReviewDetailOpen from "./Out.ReviewDetail";
 
 
 const ReviewDetail = (props) => {

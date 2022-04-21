@@ -23,7 +23,7 @@ const Review = (props) => {
     window.addEventListener('click', checkClick);
   }, []);
 
-  
+  const userIs = useSelector((state) => state.user);
   const reviewdata = useSelector((state) => state.review.review);
   const key = Object.keys([...reviewdata]);
 
@@ -105,9 +105,11 @@ const Review = (props) => {
            </Table>
           </Table>
           <Button wrap margin="30px 0" justify="flex-end">
-            <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
+            {userIs.is_login? 
+              <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
               후기쓰기
             </Button>
+            : null}
           </Button>
           <Pagination>
             <Pagination _onClick={null} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png">맨 처음 페이지로 가기</Pagination>
