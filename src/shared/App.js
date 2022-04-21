@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from '../redux/configStore';
@@ -14,9 +15,17 @@ import Detail from "../pages/Detail";
 import Flex from "../elements/Flex";
 import Write from "../pages/Write";
 import Basket from '../pages/Basket';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { actionCreators as userAction } from '../redux/modules/user';
 // import PopupPostCode from '../components/PopupPostCode';
 
 function App() {
+  const dispatch = useDispatch()
+  React.useEffect (() => {
+    dispatch(userAction.userInfo())
+    console.log('hihihihihi')
+  });
   return (
     <div className="App">
       <ConnectedRouter history={history}>

@@ -6,16 +6,17 @@ import Signup from "../../pages/Signup";
 import Login from "../../pages/Login";
 
 
-
 // actions
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
+const GET_INFO = "GET_INFO";
 
 // action creators
 const logIn = createAction(LOG_IN, user => ({ user}));
 const logOut = createAction(LOG_OUT, user => ({ user}));
 const getUser = createAction(GET_USER, user_info => ({ user_info}));
+const getinfo = createAction(GET_INFO, user_name => ({ user_name}));
 //  액션크리에이터 함수가 없을때 밑처럼 액션 객체로 만들어 넘겨준다.
 // const logIn = (user) => {
 //     return {
@@ -85,6 +86,41 @@ const loginMD = (id, pwd) => {
         // history.push("/")
     }
 }
+//유저 이름 정보 가져오기
+const userInfo = (userName) => {
+    const session = sessionStorage.getItem('token')
+    return async function (dispatch, getState, { history }) {
+        
+        axios({
+            method: "get",
+            url: "http://13.125.11.137/api/users/me",
+            
+            headers: {
+                authorization: `Bearer ${session}`,
+            },
+            //get일때 정보 보내야할때 헤더에 내가 가진 토큰정보 담아준다(인증하는거기때문에 authorization)
+        })
+        .then(function (response) {
+            console.log(response);
+            dispatch(getinfo(response.data.user.userName));
+        })
+        .catch(function (error) {
+            if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
+            console.log(error.config);
+        });
+        
+    }
+}
+
 
 //회원가입 미들웨어
 const signUpMD = (id, pwd, pwdC, name, address) => {
@@ -134,6 +170,10 @@ export default handleActions(
             }),
         // [GET_USER]: (state, action) => 
         //     produce({}),
+        [GET_INFO]: (state, action) =>
+            produce(state, (draft) => {
+                draft.user_name = action.payload.user_name;
+            }),
     }, 
     initialState
 );
@@ -159,6 +199,7 @@ const actionCreators = {
     // getUser,
     loginMD,
     signUpMD,
+    userInfo
 };
 
 export { actionCreators };

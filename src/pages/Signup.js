@@ -208,7 +208,6 @@ const Signup = props => {
                     <Flex jc="space-between">
                         <Sort>
                             <Text fontSize="14px" padding="14px 0 0 20px">휴대폰</Text>
-                            <Text padding="14px 0 0 0" color="red">*</Text>
                         </Sort>
                         <IdInput>
                             <InputBox 
