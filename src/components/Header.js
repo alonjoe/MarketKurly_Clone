@@ -41,6 +41,7 @@ const Header = (props) => {
                   <li>고객센터</li>
                 </ul>
               </div>
+              
               ) : (
               <div>
                 {/* 비로그인시 */}
@@ -76,7 +77,7 @@ const Header = (props) => {
           </Gnb>
         </Wrap>
       </Outter>
-    </React.Fragment>
+    </React.Fragment> 
   )
 }
 

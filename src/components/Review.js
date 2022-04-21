@@ -23,7 +23,7 @@ const Review = (props) => {
     window.addEventListener('click', checkClick);
   }, []);
 
-  
+  const userIs = useSelector((state) => state.user);
   const reviewdata = useSelector((state) => state.review.review);
   const key = Object.keys([...reviewdata]);
 
@@ -38,8 +38,15 @@ const Review = (props) => {
   const pgEndIndex = Math.ceil(totalReviewNum/perPgNum)%10;
 
 
-  const reviewList = reviewdata.slice(currentPgIndex*perPgNum, currentPgIndex*perPgNum+perPgIndex+1)
-  // const reviewList = [...reviewdata].sort((a, b) => b - a);
+  const reverseReviewList = [...reviewdata].sort(function(a, b){
+    return b.reviewid - a.reviewid
+  })
+
+  const reviewList = reverseReviewList.slice(currentPgIndex*perPgNum, currentPgIndex*perPgNum+perPgIndex+1)
+
+
+  
+
 
   function changePg (current) {
     setCurrentPgIndex(current.target.text-1);
@@ -48,10 +55,11 @@ const Review = (props) => {
   }
 
   function changePgPlus (current) {
-    if (currentPgIndex+1 < pgEndIndex) {
-      console.log(currentPgIndex, pgEndIndex)
+    if (currentPgIndex < pgEndIndex) {
+      
       setCurrentPgIndex(currentPgIndex+1);
-      setPgBtnActiveNum(currentPgIndex+1);
+      setPgBtnActiveNum(currentPgIndex+2);
+      console.log(currentPgIndex, pgEndIndex);
     } else {
       return null
     }
@@ -59,9 +67,9 @@ const Review = (props) => {
 
   function changePgMinus (current) {
     if (currentPgIndex+1 > 1) {
-      console.log(currentPgIndex, pgEndIndex)
       setCurrentPgIndex(currentPgIndex-1);
-      setPgBtnActiveNum(currentPgIndex-1);
+      setPgBtnActiveNum(currentPgIndex+1-1);
+      console.log(currentPgIndex, pgEndIndex);
     } else {
       return null
     }
@@ -84,7 +92,7 @@ const Review = (props) => {
             <Table tbody>
               <Table tr>
                 <Table th align="center">작성번호</Table>
-                <Table th>내용</Table>
+                <Table th>제목</Table>
                 <Table th align="center">작성자</Table>
                 <Table th align="center">작성일</Table>
               </Table>
@@ -92,11 +100,11 @@ const Review = (props) => {
                   reviewList.map((review, idx) => {
                   return (
                     <ReviewDetail 
-                      index={idx+(currentPgIndex*perPgNum)}
+                      index={reverseReviewList.length-(idx+(currentPgIndex*perPgNum))-1}
                       reviewid={review.reviewid}
                       title={review.title} 
                       userName={review.userName}  
-                      createdAt={review.createdAt} 
+                      createdAt={review.createdAt.split("T")[0]} 
                       content={review.content}
                       _onClick={deleteReview}>
                     </ReviewDetail>
@@ -105,9 +113,11 @@ const Review = (props) => {
            </Table>
           </Table>
           <Button wrap margin="30px 0" justify="flex-end">
-            <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
+            {userIs.is_login? 
+              <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
               후기쓰기
             </Button>
+            : null}
           </Button>
           <Pagination>
             <Pagination _onClick={null} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png">맨 처음 페이지로 가기</Pagination>

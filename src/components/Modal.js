@@ -30,6 +30,7 @@ const Modal = (props) => {
   // console.log(props.productbestId, props.productnewId, quantity)
   const addBasket = () => {
     if (props.productbestId) {
+      console.log(props.productbestId)
       dispatch(basketActions.addBestBasketDB(props.productbestId, quantity));
     } else {
       dispatch(basketActions.addNewBasketDB(props.productnewId, quantity));

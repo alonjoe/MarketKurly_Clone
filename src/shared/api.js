@@ -21,6 +21,11 @@ Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
 
 export const Apis = {
   loadDetail: (productId) => Api.get("api/product/detail/2"),
+  addCart: (contents, productId) => {
+    console.log ("--Run writeReview");
+    console.log (contents);
+    return Api.post("api/review/2", contents);
+  },
   loadReview: (productId) => Api.get("api/product/detail/2"),
   writeReview: (contents, productId) => {
     console.log ("--Run writeReview");
