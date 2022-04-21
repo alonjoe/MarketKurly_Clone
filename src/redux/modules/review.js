@@ -68,7 +68,8 @@ const writeReviewDB = (inputTitle, inputContent) => {
       title: inputTitle,
       content: inputContent,
     };
-    console.log(postReview)
+    console.log("--Run writeReview")
+    console.log(postReview);
     Apis.writeReview(postReview)
     .then(function (response) {
       console.log(response);
@@ -101,9 +102,12 @@ const editReviewDB = (inputTitle, inputContent) => {
   }
 }
 
+
 const deleteReviewDB = (reviewId) => {
-  console.log(reviewId);
   return function (dispatch, getState, {history}) {
+    const reviewIdData = {
+      reviewId: reviewId,
+    }
     axios({
       method: "delete",
       url: "http://13.125.11.137/api/review/2",
@@ -132,8 +136,32 @@ const deleteReviewDB = (reviewId) => {
         }
         console.log(error.config);
       });
+    // 리팩토링 필요
+    // Apis.deleteReview(reviewIdData)
+    // .then(function (response) {
+    //   console.log(response);
+    //   alert(response.data.msg);
+    //   history.goBack();
+    //   })
+    // .catch(function (error) {
+    //   if (error.response) {
+    //     console.log(error.response.data);
+    //     console.log(error.response.status);
+    //     console.log(error.response.headers);
+    //   } else if (error.request) {
+    //     console.log(error.request);
+    //   } else {
+    //     // Something happened in setting up the request that triggered an Error
+    //     console.log('Error', error.message);
+    //   }
+    //   console.log(error.config);
+    // })
   }
 }
+
+
+
+
 
 const getUserInfo = () => {
   console.log('---Run getUserInfo')

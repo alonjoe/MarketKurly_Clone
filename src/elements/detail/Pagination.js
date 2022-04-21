@@ -12,6 +12,10 @@ const Pagination = (props) => {
     wrap,
     number,
     selected,
+    _onClick,
+    value,
+    active,
+    activeNum,
   } = props;
 
   const styles = {
@@ -21,7 +25,7 @@ const Pagination = (props) => {
 
   if (icon) {
     return (
-      <PageIconLink {...styles}>
+      <PageIconLink onClick={_onClick} {...styles}>
         {children}
       </PageIconLink>
     );
@@ -29,7 +33,7 @@ const Pagination = (props) => {
 
   if (number) {
     return (
-      <PageLink {...styles}>
+      <PageLink onClick={_onClick} active={active} activeNum={activeNum} value={value} {...styles}>
         {children}
       </PageLink>
     );
@@ -55,7 +59,7 @@ const Pagination = (props) => {
 Pagination.defaultProps = {
   imgUrl: false,
   size: "34px",
-  active: true,
+  active: false,
 };
 
 const WrapPagination = styled.div`
@@ -79,9 +83,7 @@ const PageIconLink = styled.a`
   &:first-child {
     border-left: 1px solid #ddd;
   }
-  &:active {
-
-  }
+  cursor: pointer;
 `;
 
 const PageLink = styled.a`
@@ -94,11 +96,13 @@ const PageLink = styled.a`
   vertical-align: top;
   text-align: center;
   font-size: 12px;
-  ${(props) => (props.active ? 
-    `
-    background-color: #f7f7f7;
-    color: #5f0080;
-    ` : "")};
+  cursor: pointer;
+  ${(props) => (props.activeNum-1 === props.value ? 
+  `
+  background-color: #f7f7f7;
+  color: #5f0080;
+  cursor: default;
+  ` : null)};
 `;
 
 const PageLinkActive = styled.a`

@@ -5,6 +5,7 @@ import { Image, Grid, Layout, Text, Description, Table, Pagination, Button, Coun
 import { useSelector, useDispatch } from "react-redux";
 import { reviewCreators as reviewActions } from "../redux/modules/review";
 import ReviewDetail from "./ReviewDetail";
+import ReviewPagination from "./ReviewPagination";
 
 
 const Review = (props) => {
@@ -25,10 +26,54 @@ const Review = (props) => {
   
   const reviewdata = useSelector((state) => state.review.review);
   const key = Object.keys([...reviewdata]);
-  const reviewList = [...reviewdata].sort((a, b) => a - b);
+
+  const [currentPgIndex,setCurrentPgIndex]= React.useState(0)
+  const [pgBtnActiveNum,setPgBtnActiveNum]= React.useState(1)
+  const [currentPgWrapIndex,setCurrentPgWrapIndex]= React.useState(0)
+  const [pgBtnActive,setPgBtnActive]= React.useState(false)
+  const perPgNum = 7;
+  const perPgIndex = perPgNum - 1;
+  const totalReviewNum = reviewdata.length;
+  const perPgNumArray = new Array(perPgNum);
+  const pgEndIndex = Math.ceil(totalReviewNum/perPgNum)%10;
+
+
+  const reviewList = reviewdata.slice(currentPgIndex*perPgNum, currentPgIndex*perPgNum+perPgIndex+1)
+  // const reviewList = [...reviewdata].sort((a, b) => b - a);
+
+  function changePg (current) {
+    setCurrentPgIndex(current.target.text-1);
+    const currentNum = Number(current.target.text);
+    setPgBtnActiveNum(currentNum);
+  }
+
+  function changePgPlus (current) {
+    if (currentPgIndex+1 < pgEndIndex) {
+      console.log(currentPgIndex, pgEndIndex)
+      setCurrentPgIndex(currentPgIndex+1);
+      setPgBtnActiveNum(currentPgIndex+1);
+    } else {
+      return null
+    }
+  }
+
+  function changePgMinus (current) {
+    if (currentPgIndex+1 > 1) {
+      console.log(currentPgIndex, pgEndIndex)
+      setCurrentPgIndex(currentPgIndex-1);
+      setPgBtnActiveNum(currentPgIndex-1);
+    } else {
+      return null
+    }
+  }
+
+  console.log(pgBtnActiveNum);
+
+
+
 
   const deleteReview = (current) => {
-    const reviewid = Number(current.target.value)
+    const reviewid = Number(current.target.value);
     dispatch(reviewActions.deleteReviewDB(reviewid));
   }
 
@@ -47,7 +92,7 @@ const Review = (props) => {
                   reviewList.map((review, idx) => {
                   return (
                     <ReviewDetail 
-                      index={idx}
+                      index={idx+(currentPgIndex*perPgNum)}
                       reviewid={review.reviewid}
                       title={review.title} 
                       userName={review.userName}  
@@ -65,20 +110,17 @@ const Review = (props) => {
             </Button>
           </Button>
           <Pagination>
-            <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png">맨 처음 페이지로 가기</Pagination>
-            <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-prev.png">이전 페이지로 가기</Pagination>
-            <Pagination selected>1</Pagination>
-            <Pagination number>2</Pagination>
-            <Pagination number>3</Pagination>
-            <Pagination number>4</Pagination>
-            <Pagination number>5</Pagination>
-            <Pagination number>6</Pagination>
-            <Pagination number>7</Pagination>
-            <Pagination number>8</Pagination>
-            <Pagination number>9</Pagination>
-            <Pagination number>10</Pagination>
-            <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-next.png">다음 페이지로 가기</Pagination>
-            <Pagination icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-last.png">맨 끝 페이지로 가기</Pagination>
+            <Pagination _onClick={null} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-first.png">맨 처음 페이지로 가기</Pagination>
+            <Pagination _onClick={changePgMinus} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-prev.png">이전 페이지로 가기</Pagination>
+            {
+            [1,2,3,4,5,6,7,8,9,10].slice(0, pgEndIndex).map((v, i) => {
+              return (
+                <Pagination number _onClick={changePg} active={pgBtnActive} activeNum={pgBtnActiveNum} value={i}>{v}</Pagination>
+                )
+              })
+            }
+            <Pagination _onClick={changePgPlus} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-next.png">다음 페이지로 가기</Pagination>
+            <Pagination _onClick={null} icon imgUrl="https://res.kurly.com/pc/etc/old/images/common/icon-pagination-last.png">맨 끝 페이지로 가기</Pagination>
           </Pagination>
         </Grid>        
     </React.Fragment>
