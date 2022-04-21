@@ -59,7 +59,7 @@ const Modal = (props) => {
         <ButtonDiv>
           {/* props로 받아온걸로 true, false 수정 */}
           <button onClick={() => { setModal(!getModal) }}>취소</button>
-          <button onClick={ addBasket }>장바구니 담기</button>
+          <button onClick={() => { addBasket(); setModal(!getModal); }  }>장바구니 담기</button>
         </ButtonDiv>
       </MyCart>
 

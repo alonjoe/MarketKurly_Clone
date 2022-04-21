@@ -1,11 +1,15 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { actionsCreators as basketActions } from "../redux/modules/basket";
 
 import {priceUnit} from "../shared/Price";
 
-const Goods = () => {
+const Goods = (props) => {
 
-  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  const [quantity, setQuantity] = useState(props.amount);
   const [total, setTotal] = useState();
 
   // 수량 +,-하는 함수
@@ -18,24 +22,31 @@ const Goods = () => {
 		setQuantity(quantity - 1);
 	}, [quantity]);
 
+  const deleteGoods = () => {
+    dispatch(basketActions.deleteGoodsDB(props.cartId));
+  }
+
   return (
     <React.Fragment>
       <Wrap>
         <Check src="https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg" />
         <ImgBox>
-          <img src="https://img-cf.kurly.com/shop/data/goods/1649898244424i0.jpg" />
+          <img src={props.imgurl} />
         </ImgBox>
         <GoodsName>
-          <p>[서울마님] 카스테라 인절미</p>
-          <p>[서울마님] 인절미 5종</p>
+          <p>{props.title}</p>
         </GoodsName>
         <div style={{display: "flex", position: "relative"}}>
             <button className="minusBtn" onClick={onclickMinus}>감소</button>
             <input readOnly="readnly" value={quantity} />
             <button className="plusBtn" onClick={onclickPlus}>추가</button>
         </div>
-        <Amount>4,600원</Amount>
-        <span><img src="https://res.kurly.com/mobile/service/cart/2007/ico_delete.svg"/></span>
+        <Amount>{priceUnit(props.price*quantity)}원</Amount>
+        <span>
+          <img 
+            onClick={deleteGoods}
+            src="https://res.kurly.com/mobile/service/cart/2007/ico_delete.svg"/>
+        </span>
       </Wrap>
     </React.Fragment>
   )
@@ -44,12 +55,17 @@ const Goods = () => {
 export default Goods;
 
 const Wrap = styled.div`
+  position: relative;
   display: flex;
+  padding: 20px 0;
+  border-bottom: 1px solid #f4f4f4;
   span {
     margin-left: 0px;
     line-height: 75px;
     img {
-      margin-left: 25px;
+      position: absolute;
+      top: 52px;
+      right: 10px;
     }
   }
   div {
@@ -124,7 +140,8 @@ const GoodsName = styled.div`
 `;
 
 const Amount = styled.div`
-  margin-left: 165px;
+  margin-left: 155px;
   line-height: 75px;
   font-weight: 500;
+  text-align: right;
 `;

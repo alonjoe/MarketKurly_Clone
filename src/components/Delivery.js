@@ -1,10 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { GrLocation } from "react-icons/gr";
 
 import {priceUnit} from "../shared/Price";
 
 const Delivery = (props) => {
+
+  const basketList = useSelector((state) => state.basket.list);
+  // console.log(basketList);
+
+  // 장바구니에 담긴 상품의 총 금액.
+	let total_price = basketList.map(c => c.price * c.amount).reduce((acc, curr) => acc + curr, 0);
+  // console.log(total_price)
 
   return (
     <React.Fragment>
@@ -29,7 +37,7 @@ const Delivery = (props) => {
           </Pee>
           <RealPrice>
             <p>결제예정금액</p>
-            <p>19,000원</p>
+            <p>{priceUnit(total_price)}원</p>
           </RealPrice>
           <Point>
           <span>적립</span>

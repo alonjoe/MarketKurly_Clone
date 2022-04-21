@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import Goods from "./Goods";
 
 const MyCart = () => {
+
+  const basketList = useSelector((state) => state.basket.list);
+  // console.log(basketList);
 
   return (
     <React.Fragment>
@@ -14,7 +18,9 @@ const MyCart = () => {
           <p>선택삭제</p>
         </CartHeader>
         <CartList>
-          <Goods></Goods>
+          {basketList.map((v, i) => {
+            return <Goods key={`item_${i}`} {...v} />
+          })}
         </CartList>
       </Wrap>
     </React.Fragment>
