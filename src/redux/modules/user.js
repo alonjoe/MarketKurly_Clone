@@ -3,6 +3,7 @@ import { produce } from "immer";
 
 import axios from "axios";
 import Signup from "../../pages/Signup";
+import Login from "../../pages/Login";
 
 
 
@@ -27,6 +28,7 @@ const getUser = createAction(GET_USER, user_info => ({ user_info}));
 const initialState = {
     userinfo: null,
     is_login: false,
+
 };
 
 //로그인 미들웨어
@@ -47,20 +49,24 @@ const loginMD = (id, pwd) => {
           })
             .then(function (response) {
               console.log(response);
-              localStorage.setItem("token", response.data.token);
+              sessionStorage.setItem("token", response.data.token);
               console.log("로그인 완료!")
-              history.push("/")
+              dispatch(logIn());
+              history.replace("/")
             })
             .catch(function (error) {
               if (error.response) {
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
+                window.alert("아이디 또는 비밀번호를 확인해주세요")
               } else if (error.request) {
                 console.log(error.request);
+                window.alert("아이디 또는 비밀번호를 확인해주세요")
               } else {
                 // Something happened in setting up the request that triggered an Error
                 console.log('Error', error.message);
+                window.alert("아이디 또는 비밀번호를 확인해주세요")
               }
               console.log(error.config);
             });
