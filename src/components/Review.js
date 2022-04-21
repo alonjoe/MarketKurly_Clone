@@ -38,8 +38,16 @@ const Review = (props) => {
   const pgEndIndex = Math.ceil(totalReviewNum/perPgNum)%10;
 
 
-  const reviewList = reviewdata.slice(currentPgIndex*perPgNum, currentPgIndex*perPgNum+perPgIndex+1)
-  // const reviewList = [...reviewdata].sort((a, b) => b - a);
+  const reverseReviewList = [...reviewdata].sort(function(a, b){
+    return b.reviewid - a.reviewid
+  })
+
+  const reviewList = reverseReviewList.slice(currentPgIndex*perPgNum, currentPgIndex*perPgNum+perPgIndex+1)
+
+
+  
+
+  console.log(reverseReviewList)
 
   function changePg (current) {
     setCurrentPgIndex(current.target.text-1);
@@ -92,11 +100,11 @@ const Review = (props) => {
                   reviewList.map((review, idx) => {
                   return (
                     <ReviewDetail 
-                      index={idx+(currentPgIndex*perPgNum)}
+                      index={reverseReviewList.length-(idx+(currentPgIndex*perPgNum))-1}
                       reviewid={review.reviewid}
                       title={review.title} 
                       userName={review.userName}  
-                      createdAt={review.createdAt} 
+                      createdAt={review.createdAt.split("T")[0]} 
                       content={review.content}
                       _onClick={deleteReview}>
                     </ReviewDetail>
