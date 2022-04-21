@@ -47,7 +47,6 @@ const Review = (props) => {
 
   
 
-  console.log(reverseReviewList)
 
   function changePg (current) {
     setCurrentPgIndex(current.target.text-1);
@@ -56,10 +55,11 @@ const Review = (props) => {
   }
 
   function changePgPlus (current) {
-    if (currentPgIndex+1 < pgEndIndex) {
-      console.log(currentPgIndex, pgEndIndex)
+    if (currentPgIndex < pgEndIndex) {
+      
       setCurrentPgIndex(currentPgIndex+1);
-      setPgBtnActiveNum(currentPgIndex+1);
+      setPgBtnActiveNum(currentPgIndex+2);
+      console.log(currentPgIndex, pgEndIndex);
     } else {
       return null
     }
@@ -67,9 +67,9 @@ const Review = (props) => {
 
   function changePgMinus (current) {
     if (currentPgIndex+1 > 1) {
-      console.log(currentPgIndex, pgEndIndex)
       setCurrentPgIndex(currentPgIndex-1);
-      setPgBtnActiveNum(currentPgIndex-1);
+      setPgBtnActiveNum(currentPgIndex+1-1);
+      console.log(currentPgIndex, pgEndIndex);
     } else {
       return null
     }
@@ -92,7 +92,7 @@ const Review = (props) => {
             <Table tbody>
               <Table tr>
                 <Table th align="center">작성번호</Table>
-                <Table th>내용</Table>
+                <Table th>제목</Table>
                 <Table th align="center">작성자</Table>
                 <Table th align="center">작성일</Table>
               </Table>
