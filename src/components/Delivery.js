@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { GrLocation } from "react-icons/gr";
 
+import PopupDom from "../shared/PopupDom";
+import PopupPostCode from "./PopupPostCode";
 import {priceUnit} from "../shared/Price";
 
 const Delivery = (props) => {
@@ -20,7 +22,7 @@ const Delivery = (props) => {
         <CartDelivery>
           <GrLocation style={{width: "20px", height: "20px", position: "absolute", top: "22px"}} /><p style={{ paddingLeft: "25px", fontWeight: "500" }}>배송지</p>
           <p style={{ margin: "10px 0" }}><span>배송지를 입력</span>하고<br/>배송유형을 확인해 보세요!</p>
-          <div>주소검색</div>
+          <div onClick={() => {}} >주소검색</div>
         </CartDelivery>
         <AmountView>
           <OriginPrice>
