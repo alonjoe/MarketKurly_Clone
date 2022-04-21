@@ -23,7 +23,7 @@ const Review = (props) => {
     window.addEventListener('click', checkClick);
   }, []);
 
-  const userIs = useSelector((state) => state.user);
+  const userIs = useSelector((state) => state.user_name);
   const reviewdata = useSelector((state) => state.review.review);
   const key = Object.keys([...reviewdata]);
 
@@ -113,7 +113,7 @@ const Review = (props) => {
            </Table>
           </Table>
           <Button wrap margin="30px 0" justify="flex-end">
-            {userIs.is_login? 
+            {userIs.user_name? 
               <Button _onClick={() => { history.push("/write") }} sub flexGrow="0" width="fit-content">
               후기쓰기
             </Button>

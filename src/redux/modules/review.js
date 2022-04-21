@@ -64,22 +64,55 @@ const getReviewDB = () => {
 
 const writeReviewDB = (inputTitle, inputContent) => {
   return function (dispatch, getState, {history}) {
-    const postReview = {
-      title: inputTitle,
+    // const postReview = {
+    //   title: inputTitle,
+    //   content: inputContent,
+    // };
+    // console.log("--Run writeReview")
+    // console.log(postReview);
+
+    axios({
+      method: "post",
+      url: "http://13.125.11.137/api/review/2",
+      data: {
+        title: inputTitle,
       content: inputContent,
-    };
-    console.log("--Run writeReview")
-    console.log(postReview);
-    Apis.writeReview(postReview)
-    .then(function (response) {
-      console.log(response);
-      alert(response.data.msg);
-      history.goBack();
+      },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`
+      }
       })
-    .catch(function (error) {
-      console.log(error);
-      console.log("실패");
-    });
+      .then(function (response) {
+        console.log("--Run writeReview")
+        console.log(response);
+        alert(response.data.msg);
+        history.goBack();
+        
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+        console.log(error.config);
+      });
+
+    // Apis.writeReview(postReview)
+    // .then(function (response) {
+    //   console.log(response);
+    //   alert(response.data.msg);
+    //   history.goBack();
+    //   })
+    // .catch(function (error) {
+    //   console.log(error);
+    //   console.log("실패");
+    // });
   }
 }
 
@@ -115,7 +148,7 @@ const deleteReviewDB = (reviewId) => {
         reviewId: reviewId,
       },
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`
       }
       })
       .then(function (response) {
@@ -172,7 +205,7 @@ const getUserInfo = () => {
       data: {
       },
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`
       }
     })
     .then(function (response) {
