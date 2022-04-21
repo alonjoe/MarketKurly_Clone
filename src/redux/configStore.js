@@ -5,6 +5,7 @@ import { connectRouter } from "connected-react-router";
 
 import card from "./modules/card";
 import user from "./modules/user";
+import user_name from "./modules/user";
 import basket from "./modules/basket";
 import detail from "./modules/detail";
 import review from "./modules/review";
@@ -13,6 +14,7 @@ import detail_user from "./modules/review";
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  user_name: user_name,
   user: user,
   card: card,
   basket: basket,
