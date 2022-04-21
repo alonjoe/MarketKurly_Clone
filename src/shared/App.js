@@ -16,20 +16,30 @@ import Flex from "../elements/Flex";
 import Write from "../pages/Write";
 import Basket from '../pages/Basket';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userAction } from '../redux/modules/user';
 // import PopupPostCode from '../components/PopupPostCode';
 
 function App() {
   const dispatch = useDispatch()
+  const is_userName = useSelector((state) => state.user_name)
+
   React.useEffect (() => {
-    dispatch(userAction.userInfo())
-    console.log('hihihihihi')
+    dispatch(userAction.userInfo());
+    if (is_userName === null) {
+      console.log('---디테일 없음');
+      console.log(is_userName.user_name);
+      dispatch(userAction.userInfo());
+      window.location.reload();
+    } else {
+      console.log('---디테일 있음')
+      console.log(is_userName.user_name)
+    };
   });
   return (
     <div className="App">
       <ConnectedRouter history={history}>
-        <Header />
+        <Header userName={is_userName.user_name} />
         <Route exact path="/" component={Main} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />

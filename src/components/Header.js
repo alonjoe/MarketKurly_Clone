@@ -17,8 +17,12 @@ const Header = (props) => {
   // const history = useHistory();
 
   const is_login = useSelector((state) => state.user.is_login)
-  const is_userName = useSelector((state) => state.user_name)
+  
   const is_Session = sessionStorage.getItem("token");
+
+  const {
+    userName,
+  } = props;
 
   // const d_Session = sessionStorage.removeItem("token");
   // const deleteToken = localStorage.clear();
@@ -35,7 +39,7 @@ const Header = (props) => {
               <div>
                 {/* 조건걸어서 로그인시 */}
                 <ul>
-                  <li>안녕하세요 {is_userName.user_name} 님</li><p></p>
+                  <li>안녕하세요 {userName} 님</li><p></p>
                   <li><li onClick={() => {sessionStorage.clear(); window.location.href="/"}} >로그아웃</li></li><p></p>
                   
                   <li>고객센터</li>
