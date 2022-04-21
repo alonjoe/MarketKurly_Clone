@@ -21,7 +21,7 @@ const Delivery = (props) => {
       <Wrap>  
         <CartDelivery>
           <GrLocation style={{width: "20px", height: "20px", position: "absolute", top: "22px"}} /><p style={{ paddingLeft: "25px", fontWeight: "500" }}>배송지</p>
-          <p style={{ margin: "10px 0" }}><span>배송지를 입력</span>하고<br/>배송유형을 확인해 보세요!</p>
+          <p style={{ margin: "10px 0" }}><span></span>항해시 항해구 <br/>항해동 99번지</p>
           <div onClick={() => {}} >주소검색</div>
         </CartDelivery>
         <AmountView>
