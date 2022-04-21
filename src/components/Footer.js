@@ -6,8 +6,7 @@ const Footer = () => {
 
     return (
         <React.Fragment>
-            <Flex width="100%" height="156px" border="1px solid green">
-                푸터입니다.
+            <Flex>
             </Flex>
         </React.Fragment>
     )
