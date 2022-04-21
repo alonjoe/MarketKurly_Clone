@@ -5,7 +5,7 @@ import axios from "axios";
 // 액션타입
 const ADD_BASKET = "ADD_BASKET";
 const GET_BASKET = "GET_BASKET";
-const DELETE_GOODS = "DELETE_GOODS"
+const DELETE_GOODS = "DELETE_GOODS";
 
 const initialState = {
   list: [],
@@ -96,8 +96,7 @@ const deleteGoodsDB = (cartId) => {
         Authorization : `Bearer ${token}`,  // 토큰없어서 500에러 떴었음
       }
     }).then((response) => {
-      dispatch(deleteGoods(cartId))
-      window.alert(response.data.result)
+      dispatch(deleteGoods(cartId));
       window.location.href="/basket"
     }).catch((error) => {
       console.log(error);

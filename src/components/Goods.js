@@ -10,7 +10,6 @@ const Goods = (props) => {
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(props.amount);
-  const [total, setTotal] = useState();
 
   // 수량 +,-하는 함수
   const onclickPlus = useCallback(() => {
@@ -23,6 +22,7 @@ const Goods = (props) => {
 	}, [quantity]);
 
   const deleteGoods = () => {
+    window.alert("삭제하시겠습니까?");
     dispatch(basketActions.deleteGoodsDB(props.cartId));
   }
 
